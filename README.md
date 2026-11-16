@@ -1,5 +1,5 @@
 # informatica
-Milou Kremer = chef product (github = miloukremer)
-Elise Wesseling = chef kwaliteit (github = EliseWesseling)
-Soraya Zirai = chef marketing (github = soraya1003) 
-Nikkie De Ree = Manager (github = nikkiederee)
+Milou Kremer = chef Marketing (github = miloukremer)
+Elise Wesseling = Manager (github = EliseWesseling)
+Soraya Zirai = chef Kwaliteit (github = soraya1003) 
+Nikkie De Ree = chef Product (github = nikkiederee)
