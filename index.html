@@ -1,56 +1,800 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Naam van jullie Product]</title>
-</head>
-<body>
+    <title>SmaakPlek — Jouw Dagelijkse Kookinspiratie</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Playfair Display voor een culinaire uitstraling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome voor iconen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Kop van de pagina -->
-    <header>
-        <h1>[Naam van jullie Product]</h1>
-        <p>[Korte slogan of pakkende beschrijving van het product]</p>
+    <!-- Tailwind Configuratie -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            500: '#f97316', // Warm Oranje
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            900: '#7c2d12',
+                        },
+                        sage: {
+                            50: '#f4f7f4',
+                            100: '#e3ebe3',
+                            500: '#5c8260', // Kruidig Groen
+                            700: '#3d5940',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigatiebalk -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 bg-brand-500 text-white rounded-2xl flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-utensils text-lg"></i>
+                    </div>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-stone-900">Smaak<span class="text-brand-500">Plek</span></span>
+                </a>
+
+                <!-- Desktop Navigatie -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#ontdekken" class="text-sm font-medium text-stone-600 hover:text-brand-600 transition-colors">Ontdek Recepten</a>
+                    <a href="#functies" class="text-sm font-medium text-stone-600 hover:text-brand-600 transition-colors">Hoe het werkt</a>
+                    <a href="#reviews" class="text-sm font-medium text-stone-600 hover:text-brand-600 transition-colors">Ervaringen</a>
+                </nav>
+
+                <!-- CTA Knoppen -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button onclick="showToast('Inloggen is binnenkort beschikbaar!')" class="text-sm font-semibold text-stone-700 hover:text-brand-600 px-3 py-2 transition-colors">
+                        Inloggen
+                    </button>
+                    <a href="#download" class="bg-stone-900 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm transition-all duration-200 transform hover:-translate-y-0.5">
+                        Download App
+                    </a>
+                </div>
+
+                <!-- Mobiel Menu Knop -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-stone-700 hover:text-brand-600 p-2 rounded-xl focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobiel Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-stone-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#ontdekken" class="block px-3 py-2.5 rounded-xl text-base font-medium text-stone-700 hover:bg-brand-50 hover:text-brand-600">Ontdek Recepten</a>
+            <a href="#functies" class="block px-3 py-2.5 rounded-xl text-base font-medium text-stone-700 hover:bg-brand-50 hover:text-brand-600">Hoe het werkt</a>
+            <a href="#reviews" class="block px-3 py-2.5 rounded-xl text-base font-medium text-stone-700 hover:bg-brand-50 hover:text-brand-600">Ervaringen</a>
+            <div class="pt-3 border-t border-stone-100 flex flex-col gap-2">
+                <a href="#download" class="w-full text-center bg-brand-500 text-white font-semibold py-3 rounded-xl shadow-sm">
+                    Download de App
+                </a>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <!-- 1. AANBOD -->
-        <section id="aanbod">
-            <h2>Ons Aanbod</h2>
-            <ul>
-                <li><strong>Hoofdfunctie:</strong> Beschrijf hier wat het belangrijkste onderdeel is van het product.</li>
-                <li><strong>Extra optie:</strong> Beschrijf hier een tweede nuttige functie.</li>
-                <li><strong>Voordeel:</strong> Waarom moet de gebruiker dit product kiezen?</li>
-            </ul>
-        </section>
+    <!-- Hero Sectie -->
+    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Linker Kolom: Tekst & Zoekbalk -->
+                <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-100/80 text-brand-700 text-xs sm:text-sm font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        Meer dan 15.000 geteste recepten
+                    </div>
+                    
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight">
+                        Kook elke dag iets <span class="text-brand-500 italic">bijzonders</span> zonder stress.
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Van snelle doordeweekse pasta's tot uitgebreide weekenddiners. Vind recepten op basis van wat je al in huis hebt, maak slimme boodschappenlijstjes en kook stap-voor-stap.
+                    </p>
 
-        <!-- 2. UITLEG -->
-        <section id="uitleg">
-            <h2>Wat is [Naam van jullie Product]?</h2>
-            <p>
-                Leg hier in 2 tot 3 zinnen uit wat het product precies doet en welk probleem het oplost 
-                voor de gebruiker.
-            </p>
-        </section>
+                    <!-- Interactieve Zoekbalk -->
+                    <div class="max-w-xl mx-auto lg:mx-0">
+                        <form id="hero-search-form" class="relative flex items-center bg-white p-2 rounded-2xl shadow-lg shadow-stone-200/70 border border-stone-200 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/10 transition-all">
+                            <i class="fa-solid fa-magnifying-glass text-stone-400 ml-3 sm:ml-4 text-lg"></i>
+                            <input 
+                                type="text" 
+                                id="hero-search-input"
+                                placeholder="Zoek op ingrediënt of gerecht (bijv. pasta, kip)..." 
+                                class="w-full px-3 sm:px-4 py-2.5 text-sm sm:text-base text-stone-800 placeholder-stone-400 focus:outline-none bg-transparent"
+                            >
+                            <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 sm:px-6 py-3 rounded-xl transition-colors shrink-0 shadow-sm">
+                                Zoeken
+                            </button>
+                        </form>
+                        <div class="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-stone-500">
+                            <span>Populair:</span>
+                            <button type="button" onclick="quickSearch('Pasta')" class="hover:text-brand-600 underline decoration-stone-300">Pasta</button>
+                            <span>•</span>
+                            <button type="button" onclick="quickSearch('Vegetarisch')" class="hover:text-brand-600 underline decoration-stone-300">Vegetarisch</button>
+                            <span>•</span>
+                            <button type="button" onclick="quickSearch('Binnen 20 min')" class="hover:text-brand-600 underline decoration-stone-300">Binnen 20 min</button>
+                        </div>
+                    </div>
 
-        <!-- 3. HOE TE BEGINNEN -->
-        <section id="beginnen">
-            <h2>Hoe te beginnen</h2>
-            <ol>
-                <li><strong>Stap 1:</strong> Klik op de knop hieronder om de app te openen.</li>
-                <li><strong>Stap 2:</strong> Voer je gegevens of voorkeuren in.</li>
-                <li><strong>Stap 3:</strong> Start direct met gebruiken!</li>
-            </ol>
+                    <!-- App Store Badges / Statistieken -->
+                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10 border-t border-stone-200/80">
+                        <div>
+                            <div class="flex items-center gap-1 text-amber-400 text-sm">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="text-stone-900 font-bold ml-1">4.9</span>
+                            </div>
+                            <p class="text-xs text-stone-500 mt-0.5">12.000+ App Store reviews</p>
+                        </div>
+                        <div class="h-8 w-px bg-stone-200 hidden sm:block"></div>
+                        <div>
+                            <p class="text-lg font-bold text-stone-900">250.000+</p>
+                            <p class="text-xs text-stone-500">Actieve thuiskoks in NL & BE</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rechter Kolom: Visuele Showcase -->
+                <div class="lg:col-span-6 relative">
+                    <!-- Decoratieve achtergrond vorm -->
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-brand-200/40 via-sage-100/50 to-amber-100/40 rounded-[2.5rem] blur-2xl -z-10"></div>
+                    
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] bg-stone-200">
+                        <img 
+                            src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=80" 
+                            onerror="this.src='https://placehold.co/800x600/f97316/ffffff?text=Heerlijke+Verse+Gerechten'"
+                            alt="Verse kleurrijke maaltijd" 
+                            class="w-full h-full object-cover"
+                        >
+                        <!-- Zwevende Recept Kaart Overlay -->
+                        <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-stone-100 max-w-xs">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-sage-100 text-sage-700 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">Recept van de dag</span>
+                                    <h3 class="font-bold text-stone-900 text-sm">Geroosterde Pompoen Risotto</h3>
+                                    <p class="text-xs text-stone-500">25 min • 480 kcal • Vegetarisch</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Ontdek Recepten Sectie (Interactief Filterbaar) -->
+    <section id="ontdekken" class="py-16 sm:py-24 bg-white border-y border-stone-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <p>
-                <a href="app.js">Start nu met het product</a>
-            </p>
-        </section>
-    </main>
+            <!-- Sectie Header & Filters -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div>
+                    <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Proef de app</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-1">Populaire Recepten</h2>
+                </div>
 
-    <footer>
-        <p>&copy; 2026 [Jullie Teamnaam] - Alle rechten voorbehouden</p>
+                <!-- Categorie Filter Knoppen -->
+                <div id="category-filters" class="flex flex-wrap gap-2">
+                    <button data-category="Alles" class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold bg-stone-900 text-white transition-all">
+                        Alles
+                    </button>
+                    <button data-category="Snel" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+                        ⚡ Binnen 20 min
+                    </button>
+                    <button data-category="Vegetarisch" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+                        🌱 Vegetarisch
+                    </button>
+                    <button data-category="Comfort Food" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+                        🍝 Comfort Food
+                    </button>
+                </div>
+            </div>
+
+            <!-- Zoekstatus melding indien actief -->
+            <div id="search-status" class="hidden mb-6 flex items-center justify-between bg-brand-50 border border-brand-200 px-4 py-3 rounded-2xl">
+                <span id="search-status-text" class="text-sm text-brand-900 font-medium"></span>
+                <button onclick="resetFilters()" class="text-xs font-bold text-brand-600 hover:text-brand-800 underline">
+                    Wis filters
+                </button>
+            </div>
+
+            <!-- Recepten Grid (Wordt gevuld via JavaScript) -->
+            <div id="recipes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kaarten worden hier dynamisch ingeladen -->
+            </div>
+
+            <!-- Lege staat als er geen recepten gevonden zijn -->
+            <div id="empty-state" class="hidden text-center py-16 bg-stone-50 rounded-3xl border border-dashed border-stone-300">
+                <i class="fa-solid fa-bowl-rice text-4xl text-stone-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-stone-800">Geen recepten gevonden</h3>
+                <p class="text-sm text-stone-500 mt-1 mb-4">Probeer een andere zoekterm of kies een andere categorie.</p>
+                <button onclick="resetFilters()" class="bg-brand-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-600 transition-colors">
+                    Toon alle recepten
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- App Functies Sectie -->
+    <section id="functies" class="py-16 sm:py-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Slimmer koken</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-2">Alles wat je nodig hebt in één keuken-app</h2>
+                <p class="text-stone-600 mt-4">Geen gedoe meer met losse notities, openvallende kookboeken of voedselverspilling.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">Slimme Boodschappenlijst</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Voeg ingrediënten uit meerdere recepten met één tik samen. De app sorteert alles automatisch per gangpad in de supermarkt.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-sage-100 text-sage-700 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-refrigerator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">Koelkast-Scanner</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Heb je nog courgette, feta en kip over? Vul je restjes in en ontdek direct welke heerlijke gerechten je ermee kunt maken.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-fire-burner"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-3">Handsfree Kookmodus</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Grote letters, ingebouwde kookwekkers per stap en je scherm blijft aan tijdens het koken. Geen vieze vingers meer op je telefoon!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews / Ervaringen -->
+    <section id="reviews" class="py-16 sm:py-24 bg-white border-t border-stone-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 text-center mb-12">Wat thuiskoks zeggen</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-stone-50 p-6 rounded-3xl border border-stone-200/60">
+                    <div class="flex text-amber-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-stone-700 text-sm italic mb-4">"Sinds ik SmaakPlek gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-brand-200 text-brand-800 font-bold flex items-center justify-center text-xs">SL</div>
+                        <div>
+                            <p class="text-sm font-bold text-stone-900">Sanne de Vries</p>
+                            <p class="text-xs text-stone-500">Utrecht</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-stone-50 p-6 rounded-3xl border border-stone-200/60">
+                    <div class="flex text-amber-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-stone-700 text-sm italic mb-4">"Eindelijk een recepten-app zonder eindeloze levensverhalen boven elk recept. Gewoon direct duidelijke ingrediënten en heldere stappen."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-sage-200 text-sage-800 font-bold flex items-center justify-center text-xs">MK</div>
+                        <div>
+                            <p class="text-sm font-bold text-stone-900">Mark Koster</p>
+                            <p class="text-xs text-stone-500">Rotterdam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-stone-50 p-6 rounded-3xl border border-stone-200/60">
+                    <div class="flex text-amber-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-stone-700 text-sm italic mb-4">"De portie-aanpasser werkt geweldig. Of ik nu alleen eet of voor 6 vrienden kook, alle hoeveelheden worden direct omgerekend."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-amber-200 text-amber-800 font-bold flex items-center justify-center text-xs">EB</div>
+                        <div>
+                            <p class="text-sm font-bold text-stone-900">Emma Bakker</p>
+                            <p class="text-xs text-stone-500">Antwerpen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Call-To-Action Banner -->
+    <section id="download" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto bg-stone-900 rounded-[2.5rem] p-8 sm:p-14 text-center text-white relative overflow-hidden shadow-2xl">
+            <!-- Subtiele gloed -->
+            <div class="absolute top-0 right-0 w-72 h-72 bg-brand-500/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div class="absolute bottom-0 left-0 w-72 h-72 bg-sage-500/20 rounded-full blur-3xl -ml-20 -mb-20"></div>
+
+            <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight">
+                    Klaar om vanavond iets lekkers op tafel te zetten?
+                </h2>
+                <p class="text-stone-300 text-base sm:text-lg">
+                    Download SmaakPlek gratis voor iOS en Android en ontvang direct toegang tot duizenden recepten.
+                </p>
+                
+                <!-- App Store Knoppen -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="showToast('Doorsturen naar de Apple App Store...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-white text-stone-900 hover:bg-stone-100 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg">
+                        <i class="fa-brands fa-apple text-2xl"></i>
+                        <div class="text-left">
+                            <div class="text-[10px] uppercase tracking-wider text-stone-500 leading-none">Download in de</div>
+                            <div class="text-base font-bold leading-tight">App Store</div>
+                        </div>
+                    </button>
+
+                    <button onclick="showToast('Doorsturen naar Google Play...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-brand-500 text-white hover:bg-brand-600 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg">
+                        <i class="fa-brands fa-google-play text-xl"></i>
+                        <div class="text-left">
+                            <div class="text-[10px] uppercase tracking-wider text-brand-100 leading-none">Ontdek het op</div>
+                            <div class="text-base font-bold leading-tight">Google Play</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-stone-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-brand-500 text-white rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-utensils text-sm"></i>
+                </div>
+                <span class="font-serif text-xl font-bold text-stone-900">Smaak<span class="text-brand-500">Plek</span></span>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-stone-500">
+                <a href="#" class="hover:text-stone-900">Over ons</a>
+                <a href="#" class="hover:text-stone-900">Privacybeleid</a>
+                <a href="#" class="hover:text-stone-900">Voorwaarden</a>
+                <a href="#" class="hover:text-stone-900">Contact</a>
+            </div>
+
+            <p class="text-xs text-stone-400">
+                &copy; 2026 SmaakPlek B.V. Alle rechten voorbehouden.
+            </p>
+        </div>
     </footer>
 
+    <!-- Recept Detail Modaal Venster -->
+    <div id="recipe-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-100 animate-fade-in">
+            <!-- Modaal Afbeelding Header -->
+            <div class="relative h-64 sm:h-72 bg-stone-200">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-white/90 hover:bg-white text-stone-800 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-105">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <span id="modal-category" class="absolute bottom-4 left-4 bg-brand-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow"></span>
+            </div>
+
+            <!-- Modaal Inhoud -->
+            <div class="p-6 sm:p-8 space-y-6">
+                <div>
+                    <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-stone-900"></h3>
+                    <div class="flex flex-wrap gap-4 mt-3 text-sm text-stone-600">
+                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> <span id="modal-time"></span></span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> <span id="modal-kcal"></span></span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-group text-brand-500"></i> 2 personen</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-stone-100">
+                    <!-- Ingrediënten -->
+                    <div>
+                        <h4 class="font-bold text-stone-900 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-carrot text-brand-500"></i> Ingrediënten
+                        </h4>
+                        <ul id="modal-ingredients" class="space-y-2 text-sm text-stone-700">
+                            <!-- Dynamisch ingevuld -->
+                        </ul>
+                    </div>
+
+                    <!-- Bereiding -->
+                    <div>
+                        <h4 class="font-bold text-stone-900 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-list-ol text-brand-500"></i> Bereiding
+                        </h4>
+                        <ol id="modal-steps" class="space-y-3 text-sm text-stone-700 list-decimal list-inside">
+                            <!-- Dynamisch ingevuld -->
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-stone-100 flex flex-col sm:flex-row gap-3 justify-end">
+                    <button onclick="showToast('Ingrediënten toegevoegd aan je boodschappenlijst!')" class="w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Zet op boodschappenlijst
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Melding Toast (Vervangt alert) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-stone-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium">
+            <i class="fa-solid fa-circle-check text-brand-400 text-lg"></i>
+            <span id="toast-message">Melding</span>
+        </div>
+    </div>
+
+    <!-- JavaScript Applicatie Logica -->
+    <script>
+        // Voorbeeld receptendata
+        const recipes = [
+            {
+                id: 1,
+                title: "Romige Pasta Pesto met Burrata",
+                category: "Snel",
+                tags: ["Snel", "Vegetarisch", "Comfort Food", "Pasta"],
+                time: "15 min",
+                kcal: "610 kcal",
+                image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    "250g verse tagliatelle",
+                    "3 el groene basilicumpesto",
+                    "1 bol verse burrata",
+                    "Handje cherrytomaten",
+                    "2 el geroosterde pijnboompitten",
+                    "Verse basilicum & zwarte peper"
+                ],
+                steps: [
+                    "Kook de tagliatelle volgens de aanwijzingen op de verpakking beetgaar.",
+                    "Halveer ondertussen de cherrytomaten en rooster de pijnboompitten in een droge koekenpan.",
+                    "Giet de pasta af (bewaar een scheutje kookvocht) en meng de pesto erdoor.",
+                    "Verdeel over borden, leg de burrata in het midden en garneer met tomaatjes en pijnboompitten."
+                ]
+            },
+            {
+                id: 2,
+                title: "Kruidige Shakshuka met Feta",
+                category: "Vegetarisch",
+                tags: ["Vegetarisch", "Snel"],
+                time: "20 min",
+                kcal: "420 kcal",
+                image: "https://images.unsplash.com/photo-1590412227252-565eb10947d6?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    "1 blik gepelde tomaten (400g)",
+                    "4 vrije-uitloopeieren",
+                    "1 rode paprika, in blokjes",
+                    "1 ui & 2 tenen knoflook",
+                    "1 tl komijnpoeder & 1 tl paprikapoeder",
+                    "75g verkruimelde feta & verse koriander"
+                ],
+                steps: [
+                    "Fruit de ui, knoflook en paprika 5 minuten in een ruime koekenpan.",
+                    "Voeg de kruiden en gepelde tomaten toe en laat 8 minuten zachtjes pruttelen.",
+                    "Maak 4 kuiltjes in de saus en breek in elk kuiltje een ei.",
+                    "Plaats een deksel op de pan en laat de eieren in 6 minuten stollen. Bestrooi met feta."
+                ]
+            },
+            {
+                id: 3,
+                title: "Krokante Zalm Teriyaki Bowl",
+                category: "Snel",
+                tags: ["Snel"],
+                time: "20 min",
+                kcal: "540 kcal",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    "2 zalmfilets, in blokjes",
+                    "150g sushirijst",
+                    "3 el teriyakisaus",
+                    "1 avocado, in plakjes",
+                    "100g edamame boontjes",
+                    "Sesamzaadjes & bosui"
+                ],
+                steps: [
+                    "Kook de rijst gaar en laat kort uitstomen.",
+                    "Bak de zalmblokjes op hoog vuur in 4 minuten goudbruin en blus af met teriyakisaus.",
+                    "Verdeel de rijst over twee kommen en schik de zalm, avocado en edamame erop.",
+                    "Maak af met sesamzaadjes en fijngehakte bosui."
+                ]
+            },
+            {
+                id: 4,
+                title: "Langzaam Gegaarde Runderstoof",
+                category: "Comfort Food",
+                tags: ["Comfort Food"],
+                time: "2,5 uur",
+                kcal: "680 kcal",
+                image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    "500g runderriblappen",
+                    "1 flesje donker abdijbier",
+                    "2 uien & 2 winterpenen",
+                    "2 laurierblaadjes & 3 kruidnagels",
+                    "1 snee volkorenbrood met mosterd",
+                    "Klontje roomboter"
+                ],
+                steps: [
+                    "Braad het vlees rondom bruin in roomboter en haal uit de pan.",
+                    "Bak de uien en wortel aan en leg het vlees terug in de braadpan.",
+                    "Schenk het bier erbij, voeg de kruiden toe en leg de boterham met mosterd bovenop.",
+                    "Laat met de deksel op de pan 2,5 uur heel zachtjes stoven tot het vlees uit elkaar valt."
+                ]
+            },
+            {
+                id: 5,
+                title: "Geroosterde Bloemkool Curry",
+                category: "Vegetarisch",
+                tags: ["Vegetarisch", "Comfort Food"],
+                time: "30 min",
+                kcal: "460 kcal",
+                image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    "1 kleine bloemkool, in roosjes",
+                    "400ml kokosmelk",
+                    "2 el rode currypasta",
+                    "1 blik kikkererwten",
+                    "100g verse spinazie",
+                    "Naanbrood voor erbij"
+                ],
+                steps: [
+                    "Bak de currypasta 1 minuut aan in een wok en voeg de bloemkoolroosjes toe.",
+                    "Schenk de kokosmelk erbij en laat 15 minuten zachtjes koken.",
+                    "Voeg de kikkererwten en spinazie toe tot de spinazie is geslonken.",
+                    "Serveer direct met warm naanbrood."
+                ]
+            },
+            {
+                id: 6,
+                title: "Truffel Risotto met Bospaddenstoelen",
+                category: "Comfort Food",
+                tags: ["Vegetarisch", "Comfort Food"],
+                time: "35 min",
+                kcal: "590 kcal",
+                image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    "200g risottorijst (Arborio)",
+                    "250g gemengde bospaddenstoelen",
+                    "750ml warme groentebouillon",
+                    "50g geraspte Parmezaanse kaas",
+                    "1 el truffeltapenade",
+                    "1 sjalot & scheutje witte wijn"
+                ],
+                steps: [
+                    "Bak de paddenstoelen goudbruin en zet apart. Fruit de sjalot en voeg de risottorijst toe.",
+                    "Blus af met witte wijn en voeg steeds een soeplepel bouillon toe tot deze is opgenomen.",
+                    "Roer na 18 minuten de Parmezaanse kaas, truffeltapenade en paddenstoelen erdoor.",
+                    "Laat 2 minuten rusten met de deksel op de pan voor je serveert."
+                ]
+            }
+        ];
+
+        // State variabelen
+        let currentCategory = "Alles";
+        let currentSearch = "";
+
+        // DOM Elementen
+        const recipesGrid = document.getElementById('recipes-grid');
+        const emptyState = document.getElementById('empty-state');
+        const searchStatus = document.getElementById('search-status');
+        const searchStatusText = document.getElementById('search-status-text');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        // Render receptenkaarten op basis van actieve filters
+        function renderRecipes() {
+            const filtered = recipes.filter(recipe => {
+                const matchesCategory = currentCategory === "Alles" || recipe.tags.includes(currentCategory);
+                const query = currentSearch.toLowerCase().trim();
+                const matchesSearch = !query || 
+                    recipe.title.toLowerCase().includes(query) ||
+                    recipe.tags.some(t => t.toLowerCase().includes(query)) ||
+                    recipe.ingredients.some(i => i.toLowerCase().includes(query));
+                
+                return matchesCategory && matchesSearch;
+            });
+
+            // Update zoekstatus balk
+            if (currentSearch || currentCategory !== "Alles") {
+                searchStatus.classList.remove('hidden');
+                searchStatusText.textContent = `${filtered.length} recept(en) gevonden ${currentCategory !== 'Alles' ? `in '${currentCategory}'` : ''} ${currentSearch ? `voor "${currentSearch}"` : ''}`;
+            } else {
+                searchStatus.classList.add('hidden');
+            }
+
+            // Toon lege staat of vul grid
+            if (filtered.length === 0) {
+                recipesGrid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            recipesGrid.innerHTML = filtered.map(recipe => `
+                <article onclick="openRecipeModal(${recipe.id})" class="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <div class="relative h-56 overflow-hidden bg-stone-200">
+                        <img 
+                            src="${recipe.image}" 
+                            onerror="this.src='https://placehold.co/600x400/f97316/ffffff?text=${encodeURIComponent(recipe.title)}'"
+                            alt="${recipe.title}" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        >
+                        <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-stone-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                            ${recipe.category}
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 text-xs text-stone-500 mb-2">
+                                <span><i class="fa-regular fa-clock text-brand-500 mr-1"></i>${recipe.time}</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-fire text-brand-500 mr-1"></i>${recipe.kcal}</span>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors">
+                                ${recipe.title}
+                            </h3>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-sm font-semibold text-brand-600">
+                            <span>Bekijk recept</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Filter knoppen afhandelen
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset active styling
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-stone-900', 'text-white');
+                    b.classList.add('bg-stone-100', 'text-stone-700');
+                });
+                // Zet nieuwe active styling
+                btn.classList.remove('bg-stone-100', 'text-stone-700');
+                btn.classList.add('bg-stone-900', 'text-white');
+
+                currentCategory = btn.getAttribute('data-category');
+                renderRecipes();
+            });
+        });
+
+        // Hero zoekformulier afhandelen
+        document.getElementById('hero-search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            currentSearch = document.getElementById('hero-search-input').value;
+            renderRecipes();
+            document.getElementById('ontdekken').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Snelle zoektags onder de zoekbalk
+        function quickSearch(term) {
+            document.getElementById('hero-search-input').value = term;
+            currentSearch = term;
+            renderRecipes();
+            document.getElementById('ontdekken').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Alle filters resetten
+        function resetFilters() {
+            currentCategory = "Alles";
+            currentSearch = "";
+            document.getElementById('hero-search-input').value = "";
+            filterButtons.forEach(b => {
+                b.classList.remove('bg-stone-900', 'text-white');
+                b.classList.add('bg-stone-100', 'text-stone-700');
+                if (b.getAttribute('data-category') === "Alles") {
+                    b.classList.remove('bg-stone-100', 'text-stone-700');
+                    b.classList.add('bg-stone-900', 'text-white');
+                }
+            });
+            renderRecipes();
+        }
+
+        // Modaal venster openen voor receptdetails
+        function openRecipeModal(id) {
+            const recipe = recipes.find(r => r.id === id);
+            if (!recipe) return;
+
+            document.getElementById('modal-img').src = recipe.image;
+            document.getElementById('modal-category').textContent = recipe.category;
+            document.getElementById('modal-title').textContent = recipe.title;
+            document.getElementById('modal-time').textContent = recipe.time;
+            document.getElementById('modal-kcal').textContent = recipe.kcal;
+
+            document.getElementById('modal-ingredients').innerHTML = recipe.ingredients
+                .map(ing => `<li class="flex items-start gap-2"><span class="text-brand-500 mt-1">•</span><span>${ing}</span></li>`)
+                .join('');
+
+            document.getElementById('modal-steps').innerHTML = recipe.steps
+                .map(step => `<li class="leading-relaxed">${step}</li>`)
+                .join('');
+
+            const modal = document.getElementById('recipe-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Modaal venster sluiten
+        function closeModal() {
+            const modal = document.getElementById('recipe-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Sluit modaal bij klik buiten het venster
+        document.getElementById('recipe-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'recipe-modal') closeModal();
+        });
+
+        // Mobiel menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Toast notificatie tonen
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initialiseer de pagina
+        window.addEventListener('DOMContentLoaded', renderRecipes);
+    </script>
 </body>
 </html>
