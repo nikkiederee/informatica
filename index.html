@@ -27,19 +27,31 @@
                     },
                     colors: {
                         brand: {
-                            50: '#fff7ed',
-                            100: '#ffedd5',
-                            200: '#fed7aa',
-                            500: '#f97316', // Warm Oranje
-                            600: '#ea580c',
-                            700: '#c2410c',
-                            900: '#7c2d12',
+                            50: '#f5f7f2',  // Zacht lichtgroen tintje
+                            100: '#e6ece0', // Licht salie/olijf
+                            200: '#cdd9c1', // Lichtgroen accent
+                            500: '#606c38', // Olijfgroen (hoofdkleur)
+                            600: '#4c572b', // Diep olijfgroen
+                            700: '#38411f', // Donker olijfgroen
+                            900: '#232913', // Zeer donker groen
                         },
                         sage: {
-                            50: '#f4f7f4',
-                            100: '#e3ebe3',
-                            500: '#5c8260', // Kruidig Groen
-                            700: '#3d5940',
+                            50: '#f2f6ef',  // Fris lichtgroen
+                            100: '#e1ebd9', // Zacht lichtgroen
+                            200: '#c5d8b6',
+                            500: '#769460', // Kruidig lichtgroen
+                            700: '#4a6139', // Mosgroen
+                        },
+                        cream: {
+                            50: '#fdfcf8',  // Lichte crème achtergrond
+                            100: '#f7f4eb', // Warme crème
+                            200: '#ede6d3', // Zand/crème randen
+                        },
+                        earth: {
+                            500: '#8c6239', // Warm bruin
+                            700: '#5c3d24', // Kastanjebruin
+                            800: '#432d1c', // Donkerbruin
+                            900: '#2d1e12', // Espresso bruin (voor teksten & donkere secties)
                         }
                     }
                 }
@@ -47,40 +59,40 @@
         }
     </script>
 </head>
-<body class="bg-stone-50 text-stone-800 antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-cream-50 text-earth-900 antialiased selection:bg-brand-500 selection:text-white">
 
     <!-- Navigatiebalk -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200/80 transition-all">
+    <header class="sticky top-0 z-40 bg-cream-50/90 backdrop-blur-md border-b border-cream-200 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <a href="#" class="flex items-center gap-2.5 group">
-                    <div class="w-10 h-10 bg-brand-500 text-white rounded-2xl flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                    <div class="w-10 h-10 bg-brand-500 text-cream-50 rounded-2xl flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-utensils text-lg"></i>
                     </div>
-                    <span class="font-serif text-2xl font-bold tracking-tight text-stone-900">Left<span class="text-brand-500">Overly</span></span>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-earth-900">Left<span class="text-brand-500">Overly</span></span>
                 </a>
 
                 <!-- Desktop Navigatie -->
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#ontdekken" class="text-sm font-medium text-stone-600 hover:text-brand-600 transition-colors">Ontdek Recepten</a>
-                    <a href="#functies" class="text-sm font-medium text-stone-600 hover:text-brand-600 transition-colors">Hoe het werkt</a>
-                    <a href="#reviews" class="text-sm font-medium text-stone-600 hover:text-brand-600 transition-colors">Ervaringen</a>
+                    <a href="#ontdekken" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Ontdek Recepten</a>
+                    <a href="#functies" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Hoe het werkt</a>
+                    <a href="#reviews" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Ervaringen</a>
                 </nav>
 
                 <!-- CTA Knoppen -->
                 <div class="hidden md:flex items-center gap-4">
-                    <button onclick="showToast('Inloggen is binnenkort beschikbaar!')" class="text-sm font-semibold text-stone-700 hover:text-brand-600 px-3 py-2 transition-colors">
+                    <button onclick="showToast('Inloggen is binnenkort beschikbaar!')" class="text-sm font-semibold text-earth-700 hover:text-brand-600 px-3 py-2 transition-colors">
                         Inloggen
                     </button>
-                    <a href="#download" class="bg-stone-900 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm transition-all duration-200 transform hover:-translate-y-0.5">
+                    <a href="#download" class="bg-earth-800 hover:bg-brand-600 text-cream-50 text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm transition-all duration-200 transform hover:-translate-y-0.5">
                         Download App
                     </a>
                 </div>
 
                 <!-- Mobiel Menu Knop -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-stone-700 hover:text-brand-600 p-2 rounded-xl focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-earth-800 hover:text-brand-600 p-2 rounded-xl focus:outline-none">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -88,12 +100,12 @@
         </div>
 
         <!-- Mobiel Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-stone-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
-            <a href="#ontdekken" class="block px-3 py-2.5 rounded-xl text-base font-medium text-stone-700 hover:bg-brand-50 hover:text-brand-600">Ontdek Recepten</a>
-            <a href="#functies" class="block px-3 py-2.5 rounded-xl text-base font-medium text-stone-700 hover:bg-brand-50 hover:text-brand-600">Hoe het werkt</a>
-            <a href="#reviews" class="block px-3 py-2.5 rounded-xl text-base font-medium text-stone-700 hover:bg-brand-50 hover:text-brand-600">Ervaringen</a>
-            <div class="pt-3 border-t border-stone-100 flex flex-col gap-2">
-                <a href="#download" class="w-full text-center bg-brand-500 text-white font-semibold py-3 rounded-xl shadow-sm">
+        <div id="mobile-menu" class="hidden md:hidden bg-cream-50 border-b border-cream-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#ontdekken" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Ontdek Recepten</a>
+            <a href="#functies" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Hoe het werkt</a>
+            <a href="#reviews" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Ervaringen</a>
+            <div class="pt-3 border-t border-cream-200 flex flex-col gap-2">
+                <a href="#download" class="w-full text-center bg-brand-500 text-cream-50 font-semibold py-3 rounded-xl shadow-sm">
                     Download de App
                 </a>
             </div>
@@ -101,28 +113,28 @@
     </header>
 
     <!-- Hero Sectie -->
-    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-cream-50 to-sage-50/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Linker Kolom: Tekst & Zoekbalk -->
                 <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-100/80 text-brand-700 text-xs sm:text-sm font-semibold">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sage-100 text-brand-700 border border-sage-200 text-xs sm:text-sm font-semibold">
                         <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
                         Meer dan 15.000 geteste recepten
                     </div>
                     
-                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight">
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-earth-900 leading-tight">
                         Kook iets <span class="text-brand-500 italic">heerlijks</span> met wat je nog hebt liggen.
                     </h1>
                     
-                    <p class="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    <p class="text-base sm:text-lg text-earth-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                         Voeg de ingrediënten uit je koelkast of voorraadkast toe, of scan direct de barcode van je producten. LeftOverly tovert jouw restjes direct om tot verrassende recepten.
                     </p>
 
                     <!-- Interactieve Ingrediënten & Barcode Balk -->
                     <div class="max-w-xl mx-auto lg:mx-0">
-                        <div class="bg-white p-3 rounded-2xl shadow-lg shadow-stone-200/70 border border-stone-200 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/10 transition-all">
+                        <div class="bg-white p-3 rounded-2xl shadow-lg shadow-earth-900/5 border border-cream-200 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/10 transition-all">
                             <form id="ingredient-add-form" class="flex flex-wrap sm:flex-nowrap items-center gap-2">
                                 <div class="flex items-center flex-1 min-w-[160px]">
                                     <i class="fa-solid fa-basket-shopping text-brand-500 ml-2 sm:ml-3 text-lg"></i>
@@ -130,21 +142,21 @@
                                         type="text" 
                                         id="ingredient-input"
                                         placeholder="Ingrediënt (bijv. pasta)..." 
-                                        class="w-full px-2 py-2 text-sm sm:text-base text-stone-800 placeholder-stone-400 focus:outline-none bg-transparent"
+                                        class="w-full px-2 py-2 text-sm sm:text-base text-earth-900 placeholder-earth-500/60 focus:outline-none bg-transparent"
                                     >
                                 </div>
 
                                 <!-- Hoeveelheid & Eenheid -->
-                                <div class="flex items-center bg-stone-50 border border-stone-200 rounded-xl px-2 py-1 shrink-0">
+                                <div class="flex items-center bg-cream-100 border border-cream-200 rounded-xl px-2 py-1 shrink-0">
                                     <input 
                                         type="number" 
                                         id="ingredient-amount"
                                         min="1"
                                         step="any"
                                         placeholder="Aantal" 
-                                        class="w-16 text-sm text-stone-800 placeholder-stone-400 focus:outline-none bg-transparent text-right pr-1"
+                                        class="w-16 text-sm text-earth-900 placeholder-earth-500/60 focus:outline-none bg-transparent text-right pr-1"
                                     >
-                                    <select id="ingredient-unit" class="text-xs font-semibold text-stone-600 bg-transparent focus:outline-none cursor-pointer pr-1">
+                                    <select id="ingredient-unit" class="text-xs font-semibold text-earth-700 bg-transparent focus:outline-none cursor-pointer pr-1">
                                         <option value="g">g</option>
                                         <option value="stuks">stuks</option>
                                         <option value="ml">ml</option>
@@ -159,15 +171,15 @@
                                         type="button" 
                                         onclick="openScannerModal()" 
                                         title="Scan barcode van een product"
-                                        class="p-2.5 sm:px-3 sm:py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium text-sm flex items-center gap-1.5 transition-colors shrink-0"
+                                        class="p-2.5 sm:px-3 sm:py-2.5 rounded-xl bg-cream-100 hover:bg-cream-200 text-earth-800 font-medium text-sm flex items-center gap-1.5 transition-colors shrink-0"
                                     >
-                                        <i class="fa-solid fa-barcode text-lg text-stone-800"></i>
+                                        <i class="fa-solid fa-barcode text-lg text-earth-800"></i>
                                         <span class="sm:hidden">Scan</span>
                                     </button>
                                     <!-- Toevoegen Knop -->
                                     <button 
                                         type="submit" 
-                                        class="flex-1 sm:flex-initial bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0 shadow-sm flex items-center justify-center gap-1.5"
+                                        class="flex-1 sm:flex-initial bg-brand-500 hover:bg-brand-600 text-cream-50 font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0 shadow-sm flex items-center justify-center gap-1.5"
                                     >
                                         <i class="fa-solid fa-plus text-sm"></i>
                                         <span>Voeg toe</span>
@@ -176,10 +188,10 @@
                             </form>
 
                             <!-- Lijst met toegevoegde ingrediënten (Tags) -->
-                            <div id="selected-ingredients-container" class="hidden pt-3 mt-3 border-t border-stone-100">
+                            <div id="selected-ingredients-container" class="hidden pt-3 mt-3 border-t border-cream-200">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Jouw voorraad:</span>
-                                    <button type="button" onclick="clearIngredients()" class="text-xs text-stone-400 hover:text-brand-600 transition-colors">Wis alles</button>
+                                    <span class="text-xs font-semibold text-earth-700 uppercase tracking-wider">Jouw voorraad:</span>
+                                    <button type="button" onclick="clearIngredients()" class="text-xs text-earth-500 hover:text-brand-600 transition-colors">Wis alles</button>
                                 </div>
                                 <div id="selected-ingredients-list" class="flex flex-wrap gap-2">
                                     <!-- Dynamische ingredient pills -->
@@ -193,32 +205,32 @@
                         </div>
 
                         <!-- Snelle suggesties -->
-                        <div class="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-stone-500">
+                        <div class="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-earth-700">
                             <span>Snel toevoegen:</span>
-                            <button type="button" onclick="addIngredient('Pasta', 250, 'g')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 250g Pasta</button>
-                            <button type="button" onclick="addIngredient('Feta', 50, 'g')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 50g Feta</button>
-                            <button type="button" onclick="addIngredient('Zalm', 2, 'stuks')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 2 Zalm</button>
-                            <button type="button" onclick="addIngredient('Bloemkool', 1, 'stuks')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 1 Bloemkool</button>
+                            <button type="button" onclick="addIngredient('Pasta', 250, 'g')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 250g Pasta</button>
+                            <button type="button" onclick="addIngredient('Feta', 50, 'g')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 50g Feta</button>
+                            <button type="button" onclick="addIngredient('Zalm', 2, 'stuks')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 2 Zalm</button>
+                            <button type="button" onclick="addIngredient('Bloemkool', 1, 'stuks')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 1 Bloemkool</button>
                         </div>
                     </div>
 
                     <!-- App Store Badges / Statistieken -->
-                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10 border-t border-stone-200/80">
+                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10 border-t border-cream-200">
                         <div>
-                            <div class="flex items-center gap-1 text-amber-400 text-sm">
+                            <div class="flex items-center gap-1 text-earth-500 text-sm">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
-                                <span class="text-stone-900 font-bold ml-1">4.9</span>
+                                <span class="text-earth-900 font-bold ml-1">4.9</span>
                             </div>
-                            <p class="text-xs text-stone-500 mt-0.5">12.000+ App Store reviews</p>
+                            <p class="text-xs text-earth-700 mt-0.5">12.000+ App Store reviews</p>
                         </div>
-                        <div class="h-8 w-px bg-stone-200 hidden sm:block"></div>
+                        <div class="h-8 w-px bg-cream-200 hidden sm:block"></div>
                         <div>
-                            <p class="text-lg font-bold text-stone-900">250.000+</p>
-                            <p class="text-xs text-stone-500">Actieve thuiskoks in NL & BE</p>
+                            <p class="text-lg font-bold text-earth-900">250.000+</p>
+                            <p class="text-xs text-earth-700">Actieve thuiskoks in NL & BE</p>
                         </div>
                     </div>
                 </div>
@@ -226,26 +238,26 @@
                 <!-- Rechter Kolom: Visuele Showcase -->
                 <div class="lg:col-span-6 relative">
                     <!-- Decoratieve achtergrond vorm -->
-                    <div class="absolute -inset-4 bg-gradient-to-tr from-brand-200/40 via-sage-100/50 to-amber-100/40 rounded-[2.5rem] blur-2xl -z-10"></div>
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-sage-200/50 via-brand-100/50 to-cream-200/60 rounded-[2.5rem] blur-2xl -z-10"></div>
                     
-                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] bg-stone-200">
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-earth-900/10 border-4 border-cream-50 aspect-[4/3] bg-cream-200">
                         <img 
                             src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=80" 
-                            onerror="this.src='https://placehold.co/800x600/f97316/ffffff?text=Heerlijke+Verse+Gerechten'"
+                            onerror="this.src='https://placehold.co/800x600/606c38/fdfcf8?text=Heerlijke+Verse+Gerechten'"
                             alt="Verse kleurrijke maaltijd" 
                             class="w-full h-full object-cover"
                         >
                         <!-- Zwevende Recept Kaart Overlay -->
-                        <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-stone-100 max-w-xs">
-                    <p class="text-stone-700 text-sm italic mb-4">"Sinds ik LeftOverly gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
-                    <div class="flex items-center gap-3">
+                        <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto bg-cream-50/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-cream-200 max-w-xs">
+                            <p class="text-earth-700 text-sm italic mb-4">"Sinds ik LeftOverly gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
+                            <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 rounded-xl bg-sage-100 text-sage-700 flex items-center justify-center shrink-0">
                                     <i class="fa-solid fa-clock text-xl"></i>
                                 </div>
                                 <div>
                                     <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">Recept van de dag</span>
-                                    <h3 class="font-bold text-stone-900 text-sm">Geroosterde Pompoen Risotto</h3>
-                                    <p class="text-xs text-stone-500">25 min • 480 kcal • Vegetarisch</p>
+                                    <h3 class="font-bold text-earth-900 text-sm">Geroosterde Pompoen Risotto</h3>
+                                    <p class="text-xs text-earth-700">25 min • 480 kcal • Vegetarisch</p>
                                 </div>
                             </div>
                         </div>
@@ -257,37 +269,37 @@
     </section>
 
     <!-- Ontdek Recepten Sectie (Interactief Filterbaar) -->
-    <section id="ontdekken" class="py-16 sm:py-24 bg-white border-y border-stone-200/70">
+    <section id="ontdekken" class="py-16 sm:py-24 bg-cream-100/70 border-y border-cream-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Sectie Header & Filters -->
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
                 <div>
                     <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Proef de app</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-1">Populaire Recepten</h2>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Populaire Recepten</h2>
                 </div>
 
                 <!-- Categorie Filter Knoppen -->
                 <div id="category-filters" class="flex flex-wrap gap-2">
-                    <button data-category="Alles" class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold bg-stone-900 text-white transition-all">
+                    <button data-category="Alles" class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold bg-brand-500 text-cream-50 transition-all shadow-sm">
                         Alles
                     </button>
-                    <button data-category="Snel" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+                    <button data-category="Snel" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-cream-50 border border-cream-200 text-earth-800 hover:bg-sage-100 transition-all">
                         ⚡ Binnen 20 min
                     </button>
-                    <button data-category="Vegetarisch" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+                    <button data-category="Vegetarisch" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-cream-50 border border-cream-200 text-earth-800 hover:bg-sage-100 transition-all">
                         🌱 Vegetarisch
                     </button>
-                    <button data-category="Comfort Food" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all">
+                    <button data-category="Comfort Food" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-cream-50 border border-cream-200 text-earth-800 hover:bg-sage-100 transition-all">
                         🍝 Comfort Food
                     </button>
                 </div>
             </div>
 
             <!-- Zoekstatus melding indien actief -->
-            <div id="search-status" class="hidden mb-6 flex items-center justify-between bg-brand-50 border border-brand-200 px-4 py-3 rounded-2xl">
+            <div id="search-status" class="hidden mb-6 flex items-center justify-between bg-sage-100 border border-sage-200 px-4 py-3 rounded-2xl">
                 <span id="search-status-text" class="text-sm text-brand-900 font-medium"></span>
-                <button onclick="resetFilters()" class="text-xs font-bold text-brand-600 hover:text-brand-800 underline">
+                <button onclick="resetFilters()" class="text-xs font-bold text-brand-600 hover:text-brand-900 underline">
                     Wis filters
                 </button>
             </div>
@@ -298,11 +310,11 @@
             </div>
 
             <!-- Lege staat als er geen recepten gevonden zijn -->
-            <div id="empty-state" class="hidden text-center py-16 bg-stone-50 rounded-3xl border border-dashed border-stone-300">
-                <i class="fa-solid fa-bowl-rice text-4xl text-stone-400 mb-3"></i>
-                <h3 class="text-lg font-bold text-stone-800">Geen recepten gevonden</h3>
-                <p class="text-sm text-stone-500 mt-1 mb-4">Probeer een andere zoekterm of kies een andere categorie.</p>
-                <button onclick="resetFilters()" class="bg-brand-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-600 transition-colors">
+            <div id="empty-state" class="hidden text-center py-16 bg-cream-50 rounded-3xl border border-dashed border-cream-200">
+                <i class="fa-solid fa-bowl-rice text-4xl text-earth-500 mb-3"></i>
+                <h3 class="text-lg font-bold text-earth-900">Geen recepten gevonden</h3>
+                <p class="text-sm text-earth-700 mt-1 mb-4">Probeer een andere zoekterm of kies een andere categorie.</p>
+                <button onclick="resetFilters()" class="bg-brand-500 text-cream-50 px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-600 transition-colors">
                     Toon alle recepten
                 </button>
             </div>
@@ -311,44 +323,44 @@
     </section>
 
     <!-- App Functies Sectie -->
-    <section id="functies" class="py-16 sm:py-24 bg-stone-50">
+    <section id="functies" class="py-16 sm:py-24 bg-cream-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Slimmer koken</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-2">Alles wat je nodig hebt in één keuken-app</h2>
-                <p class="text-stone-600 mt-4">Geen gedoe meer met losse notities, openvallende kookboeken of voedselverspilling.</p>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 mt-2">Alles wat je nodig hebt in één keuken-app</h2>
+                <p class="text-earth-700 mt-4">Geen gedoe meer met losse notities, openvallende kookboeken of voedselverspilling.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-cream-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-sage-100 text-brand-600 flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-basket-shopping"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-3">Slimme Boodschappenlijst</h3>
-                    <p class="text-stone-600 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold text-earth-900 mb-3">Slimme Boodschappenlijst</h3>
+                    <p class="text-earth-700 text-sm leading-relaxed">
                         Voeg ingrediënten uit meerdere recepten met één tik samen. De app sorteert alles automatisch per gangpad in de supermarkt.
                     </p>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 rounded-2xl bg-sage-100 text-sage-700 flex items-center justify-center text-2xl mb-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-cream-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-refrigerator"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-3">Koelkast-Scanner</h3>
-                    <p class="text-stone-600 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold text-earth-900 mb-3">Koelkast-Scanner</h3>
+                    <p class="text-earth-700 text-sm leading-relaxed">
                         Heb je nog courgette, feta en kip over? Vul je restjes in en ontdek direct welke heerlijke gerechten je ermee kunt maken.
                     </p>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200/80 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-cream-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-cream-200 text-earth-700 flex items-center justify-center text-2xl mb-6">
                         <i class="fa-solid fa-fire-burner"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-3">Handsfree Kookmodus</h3>
-                    <p class="text-stone-600 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold text-earth-900 mb-3">Handsfree Kookmodus</h3>
+                    <p class="text-earth-700 text-sm leading-relaxed">
                         Grote letters, ingebouwde kookwekkers per stap en je scherm blijft aan tijdens het koken. Geen vieze vingers meer op je telefoon!
                     </p>
                 </div>
@@ -357,49 +369,49 @@
     </section>
 
     <!-- Reviews / Ervaringen -->
-    <section id="reviews" class="py-16 sm:py-24 bg-white border-t border-stone-200/70">
+    <section id="reviews" class="py-16 sm:py-24 bg-sage-50/70 border-t border-cream-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 text-center mb-12">Wat thuiskoks zeggen</h2>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 text-center mb-12">Wat thuiskoks zeggen</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-stone-50 p-6 rounded-3xl border border-stone-200/60">
-                    <div class="flex text-amber-400 text-sm mb-3">
+                <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200 shadow-sm">
+                    <div class="flex text-brand-500 text-sm mb-3">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-stone-700 text-sm italic mb-4">"Sinds ik SmaakPlek gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
+                    <p class="text-earth-800 text-sm italic mb-4">"Sinds ik LeftOverly gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-brand-200 text-brand-800 font-bold flex items-center justify-center text-xs">SL</div>
+                        <div class="w-9 h-9 rounded-full bg-sage-200 text-brand-800 font-bold flex items-center justify-center text-xs">SL</div>
                         <div>
-                            <p class="text-sm font-bold text-stone-900">Sanne de Vries</p>
-                            <p class="text-xs text-stone-500">Utrecht</p>
+                            <p class="text-sm font-bold text-earth-900">Sanne de Vries</p>
+                            <p class="text-xs text-earth-600">Utrecht</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-stone-50 p-6 rounded-3xl border border-stone-200/60">
-                    <div class="flex text-amber-400 text-sm mb-3">
+                <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200 shadow-sm">
+                    <div class="flex text-brand-500 text-sm mb-3">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-stone-700 text-sm italic mb-4">"Eindelijk een recepten-app zonder eindeloze levensverhalen boven elk recept. Gewoon direct duidelijke ingrediënten en heldere stappen."</p>
+                    <p class="text-earth-800 text-sm italic mb-4">"Eindelijk een recepten-app zonder eindeloze levensverhalen boven elk recept. Gewoon direct duidelijke ingrediënten en heldere stappen."</p>
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-sage-200 text-sage-800 font-bold flex items-center justify-center text-xs">MK</div>
+                        <div class="w-9 h-9 rounded-full bg-brand-200 text-brand-900 font-bold flex items-center justify-center text-xs">MK</div>
                         <div>
-                            <p class="text-sm font-bold text-stone-900">Mark Koster</p>
-                            <p class="text-xs text-stone-500">Rotterdam</p>
+                            <p class="text-sm font-bold text-earth-900">Mark Koster</p>
+                            <p class="text-xs text-earth-600">Rotterdam</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-stone-50 p-6 rounded-3xl border border-stone-200/60">
-                    <div class="flex text-amber-400 text-sm mb-3">
+                <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200 shadow-sm">
+                    <div class="flex text-brand-500 text-sm mb-3">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-stone-700 text-sm italic mb-4">"De portie-aanpasser werkt geweldig. Of ik nu alleen eet of voor 6 vrienden kook, alle hoeveelheden worden direct omgerekend."</p>
+                    <p class="text-earth-800 text-sm italic mb-4">"De portie-aanpasser werkt geweldig. Of ik nu alleen eet of voor 6 vrienden kook, alle hoeveelheden worden direct omgerekend."</p>
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-amber-200 text-amber-800 font-bold flex items-center justify-center text-xs">EB</div>
+                        <div class="w-9 h-9 rounded-full bg-cream-200 text-earth-800 font-bold flex items-center justify-center text-xs">EB</div>
                         <div>
-                            <p class="text-sm font-bold text-stone-900">Emma Bakker</p>
-                            <p class="text-xs text-stone-500">Antwerpen</p>
+                            <p class="text-sm font-bold text-earth-900">Emma Bakker</p>
+                            <p class="text-xs text-earth-600">Antwerpen</p>
                         </div>
                     </div>
                 </div>
@@ -408,34 +420,34 @@
     </section>
 
     <!-- Download Call-To-Action Banner -->
-    <section id="download" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-5xl mx-auto bg-stone-900 rounded-[2.5rem] p-8 sm:p-14 text-center text-white relative overflow-hidden shadow-2xl">
+    <section id="download" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-cream-50">
+        <div class="max-w-5xl mx-auto bg-brand-700 rounded-[2.5rem] p-8 sm:p-14 text-center text-cream-50 relative overflow-hidden shadow-2xl shadow-brand-900/15">
             <!-- Subtiele gloed -->
-            <div class="absolute top-0 right-0 w-72 h-72 bg-brand-500/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
-            <div class="absolute bottom-0 left-0 w-72 h-72 bg-sage-500/20 rounded-full blur-3xl -ml-20 -mb-20"></div>
+            <div class="absolute top-0 right-0 w-72 h-72 bg-sage-500/30 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div class="absolute bottom-0 left-0 w-72 h-72 bg-earth-800/40 rounded-full blur-3xl -ml-20 -mb-20"></div>
 
             <div class="relative z-10 max-w-2xl mx-auto space-y-6">
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight text-cream-50">
                     Klaar om vanavond iets lekkers op tafel te zetten?
                 </h2>
-                <p class="text-stone-300 text-base sm:text-lg">
+                <p class="text-sage-100 text-base sm:text-lg">
                     Download LeftOverly gratis voor iOS en Android en ontvang direct toegang tot duizenden anti-verspillingsrecepten.
                 </p>
                 
                 <!-- App Store Knoppen -->
                 <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button onclick="showToast('Doorsturen naar de Apple App Store...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-white text-stone-900 hover:bg-stone-100 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg">
+                    <button onclick="showToast('Doorsturen naar de Apple App Store...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-cream-50 text-earth-900 hover:bg-cream-100 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg">
                         <i class="fa-brands fa-apple text-2xl"></i>
                         <div class="text-left">
-                            <div class="text-[10px] uppercase tracking-wider text-stone-500 leading-none">Download in de</div>
+                            <div class="text-[10px] uppercase tracking-wider text-earth-600 leading-none">Download in de</div>
                             <div class="text-base font-bold leading-tight">App Store</div>
                         </div>
                     </button>
 
-                    <button onclick="showToast('Doorsturen naar Google Play...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-brand-500 text-white hover:bg-brand-600 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg">
+                    <button onclick="showToast('Doorsturen naar Google Play...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-earth-800 text-cream-50 hover:bg-earth-900 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg border border-earth-700">
                         <i class="fa-brands fa-google-play text-xl"></i>
                         <div class="text-left">
-                            <div class="text-[10px] uppercase tracking-wider text-brand-100 leading-none">Ontdek het op</div>
+                            <div class="text-[10px] uppercase tracking-wider text-cream-200 leading-none">Ontdek het op</div>
                             <div class="text-base font-bold leading-tight">Google Play</div>
                         </div>
                     </button>
@@ -445,73 +457,73 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-stone-200 py-12">
+    <footer class="bg-cream-100 border-t border-cream-200 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-brand-500 text-white rounded-xl flex items-center justify-center">
+                <div class="w-8 h-8 bg-brand-500 text-cream-50 rounded-xl flex items-center justify-center">
                     <i class="fa-solid fa-utensils text-sm"></i>
                 </div>
-                <span class="font-serif text-xl font-bold text-stone-900">Left<span class="text-brand-500">Overly</span></span>
+                <span class="font-serif text-xl font-bold text-earth-900">Left<span class="text-brand-500">Overly</span></span>
             </div>
             
-            <div class="flex flex-wrap justify-center gap-6 text-sm text-stone-500">
-                <a href="#" class="hover:text-stone-900">Over ons</a>
-                <a href="#" class="hover:text-stone-900">Privacybeleid</a>
-                <a href="#" class="hover:text-stone-900">Voorwaarden</a>
-                <a href="#" class="hover:text-stone-900">Contact</a>
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-earth-700">
+                <a href="#" class="hover:text-brand-600">Over ons</a>
+                <a href="#" class="hover:text-brand-600">Privacybeleid</a>
+                <a href="#" class="hover:text-brand-600">Voorwaarden</a>
+                <a href="#" class="hover:text-brand-600">Contact</a>
             </div>
 
-            <p class="text-xs text-stone-400">
+            <p class="text-xs text-earth-600">
                 &copy; 2026 LeftOverly B.V. Alle rechten voorbehouden.
             </p>
         </div>
     </footer>
 
     <!-- Barcode Scanner Modaal Venster -->
-    <div id="scanner-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/75 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-stone-100">
-            <div class="p-5 border-b border-stone-100 flex items-center justify-between">
+    <div id="scanner-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-earth-900/75 backdrop-blur-sm">
+        <div class="bg-cream-50 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-cream-200">
+            <div class="p-5 border-b border-cream-200 flex items-center justify-between bg-white">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-xl bg-sage-100 text-brand-600 flex items-center justify-center">
                         <i class="fa-solid fa-barcode"></i>
                     </div>
-                    <h3 class="font-bold text-stone-900">Product Barcode Scannen</h3>
+                    <h3 class="font-bold text-earth-900">Product Barcode Scannen</h3>
                 </div>
-                <button onclick="closeScannerModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors">
+                <button onclick="closeScannerModal()" class="w-8 h-8 rounded-full bg-cream-100 hover:bg-cream-200 text-earth-700 flex items-center justify-center transition-colors">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <div class="p-6 space-y-5">
                 <!-- Gesimuleerde Camera Viewfinder -->
-                <div class="relative h-48 bg-stone-900 rounded-2xl overflow-hidden flex flex-col items-center justify-center text-white p-4">
-                    <div class="absolute inset-4 border-2 border-brand-400/70 rounded-xl pointer-events-none flex items-center justify-center">
+                <div class="relative h-48 bg-earth-900 rounded-2xl overflow-hidden flex flex-col items-center justify-center text-cream-50 p-4">
+                    <div class="absolute inset-4 border-2 border-sage-200/80 rounded-xl pointer-events-none flex items-center justify-center">
                         <!-- Geanimeerde scanlijn -->
-                        <div class="w-full h-0.5 bg-brand-500 shadow-[0_0_8px_#f97316] animate-pulse"></div>
+                        <div class="w-full h-0.5 bg-sage-200 shadow-[0_0_8px_#c5d8b6] animate-pulse"></div>
                     </div>
-                    <i class="fa-solid fa-camera text-3xl text-stone-500 mb-2"></i>
-                    <p id="scanner-status-text" class="text-xs text-stone-300 text-center">Richt je camera op een barcode of kies hieronder een testproduct om te scannen</p>
+                    <i class="fa-solid fa-camera text-3xl text-cream-200/60 mb-2"></i>
+                    <p id="scanner-status-text" class="text-xs text-cream-100 text-center">Richt je camera op een barcode of kies hieronder een testproduct om te scannen</p>
                 </div>
 
                 <!-- Gesimuleerde Producten om te scannen -->
                 <div>
-                    <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2.5">Simuleer een barcode-scan:</p>
+                    <p class="text-xs font-semibold text-earth-700 uppercase tracking-wider mb-2.5">Simuleer een barcode-scan:</p>
                     <div class="grid grid-cols-2 gap-2.5">
-                        <button type="button" onclick="simulateBarcodeScan('Gepelde Tomaten (400g)', 'Tomaten', 400, 'g')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
-                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871040012938</div>
-                            <div class="text-sm font-bold text-stone-800">Gepelde Tomaten (400g)</div>
+                        <button type="button" onclick="simulateBarcodeScan('Gepelde Tomaten (400g)', 'Tomaten', 400, 'g')" class="p-3 rounded-xl bg-white border border-cream-200 hover:border-brand-500 hover:bg-sage-50 text-left transition-all group">
+                            <div class="text-xs font-mono text-earth-500 group-hover:text-brand-600">871040012938</div>
+                            <div class="text-sm font-bold text-earth-900">Gepelde Tomaten (400g)</div>
                         </button>
-                        <button type="button" onclick="simulateBarcodeScan('Verse Tagliatelle (125g)', 'Pasta', 125, 'g')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
-                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871890744120</div>
-                            <div class="text-sm font-bold text-stone-800">Tagliatelle (125g)</div>
+                        <button type="button" onclick="simulateBarcodeScan('Verse Tagliatelle (125g)', 'Pasta', 125, 'g')" class="p-3 rounded-xl bg-white border border-cream-200 hover:border-brand-500 hover:bg-sage-50 text-left transition-all group">
+                            <div class="text-xs font-mono text-earth-500 group-hover:text-brand-600">871890744120</div>
+                            <div class="text-sm font-bold text-earth-900">Tagliatelle (125g)</div>
                         </button>
-                        <button type="button" onclick="simulateBarcodeScan('Kokosmelk Bio (400ml)', 'Kokosmelk', 400, 'ml')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
-                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871210088321</div>
-                            <div class="text-sm font-bold text-stone-800">Kokosmelk (400ml)</div>
+                        <button type="button" onclick="simulateBarcodeScan('Kokosmelk Bio (400ml)', 'Kokosmelk', 400, 'ml')" class="p-3 rounded-xl bg-white border border-cream-200 hover:border-brand-500 hover:bg-sage-50 text-left transition-all group">
+                            <div class="text-xs font-mono text-earth-500 group-hover:text-brand-600">871210088321</div>
+                            <div class="text-sm font-bold text-earth-900">Kokosmelk (400ml)</div>
                         </button>
-                        <button type="button" onclick="simulateBarcodeScan('Paddenstoelen (150g)', 'Paddenstoelen', 150, 'g')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
-                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871062499104</div>
-                            <div class="text-sm font-bold text-stone-800">Paddenstoelen (150g)</div>
+                        <button type="button" onclick="simulateBarcodeScan('Paddenstoelen (150g)', 'Paddenstoelen', 150, 'g')" class="p-3 rounded-xl bg-white border border-cream-200 hover:border-brand-500 hover:bg-sage-50 text-left transition-all group">
+                            <div class="text-xs font-mono text-earth-500 group-hover:text-brand-600">871062499104</div>
+                            <div class="text-sm font-bold text-earth-900">Paddenstoelen (150g)</div>
                         </button>
                     </div>
                 </div>
@@ -520,23 +532,23 @@
     </div>
 
     <!-- Recept Detail Modaal Venster -->
-    <div id="recipe-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-100 animate-fade-in">
+    <div id="recipe-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-earth-900/60 backdrop-blur-sm">
+        <div class="bg-cream-50 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-cream-200 animate-fade-in">
             <!-- Modaal Afbeelding Header -->
-            <div class="relative h-64 sm:h-72 bg-stone-200">
+            <div class="relative h-64 sm:h-72 bg-cream-200">
                 <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
-                <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-white/90 hover:bg-white text-stone-800 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-105">
+                <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-cream-50/95 hover:bg-white text-earth-900 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-105">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
-                <span id="modal-category" class="absolute bottom-4 left-4 bg-brand-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow"></span>
+                <span id="modal-category" class="absolute bottom-4 left-4 bg-brand-500 text-cream-50 text-xs font-bold px-3 py-1.5 rounded-full shadow"></span>
             </div>
 
             <!-- Modaal Inhoud -->
             <div class="p-6 sm:p-8 space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-stone-900"></h3>
-                        <div class="flex flex-wrap gap-4 mt-3 text-sm text-stone-600">
+                        <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-earth-900"></h3>
+                        <div class="flex flex-wrap gap-4 mt-3 text-sm text-earth-700">
                             <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> <span id="modal-time"></span></span>
                             <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> <span id="modal-kcal"></span></span>
                             <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-group text-brand-500"></i> <span id="modal-portions-text">2 personen</span></span>
@@ -544,38 +556,38 @@
                     </div>
 
                     <!-- Portie-aanpasser op basis van voorraad -->
-                    <div id="portion-adjust-banner" class="hidden bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-900 max-w-xs">
+                    <div id="portion-adjust-banner" class="hidden bg-cream-100 border border-earth-500/30 rounded-2xl p-3 text-xs text-earth-900 max-w-xs">
                         <p id="portion-adjust-msg" class="font-medium mb-1.5"></p>
-                        <button type="button" id="scale-recipe-btn" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                        <button type="button" id="scale-recipe-btn" class="bg-earth-700 hover:bg-earth-800 text-cream-50 font-semibold px-3 py-1.5 rounded-lg transition-colors">
                             Pas porties aan
                         </button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-stone-100">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-cream-200">
                     <!-- Ingrediënten -->
                     <div>
-                        <h4 class="font-bold text-stone-900 mb-3 flex items-center gap-2">
+                        <h4 class="font-bold text-earth-900 mb-3 flex items-center gap-2">
                             <i class="fa-solid fa-carrot text-brand-500"></i> Ingrediënten & Voorraadcheck
                         </h4>
-                        <ul id="modal-ingredients" class="space-y-2.5 text-sm text-stone-700">
+                        <ul id="modal-ingredients" class="space-y-2.5 text-sm text-earth-800">
                             <!-- Dynamisch ingevuld -->
                         </ul>
                     </div>
 
                     <!-- Bereiding -->
                     <div>
-                        <h4 class="font-bold text-stone-900 mb-3 flex items-center gap-2">
+                        <h4 class="font-bold text-earth-900 mb-3 flex items-center gap-2">
                             <i class="fa-solid fa-list-ol text-brand-500"></i> Bereiding
                         </h4>
-                        <ol id="modal-steps" class="space-y-3 text-sm text-stone-700 list-decimal list-inside">
+                        <ol id="modal-steps" class="space-y-3 text-sm text-earth-800 list-decimal list-inside">
                             <!-- Dynamisch ingevuld -->
                         </ol>
                     </div>
                 </div>
 
-                <div class="pt-4 border-t border-stone-100 flex flex-col sm:flex-row gap-3 justify-end">
-                    <button onclick="showToast('Ingrediënten toegevoegd aan je boodschappenlijst!')" class="w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                <div class="pt-4 border-t border-cream-200 flex flex-col sm:flex-row gap-3 justify-end">
+                    <button onclick="showToast('Ingrediënten toegevoegd aan je boodschappenlijst!')" class="w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-cream-50 font-semibold px-6 py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
                         <i class="fa-solid fa-plus"></i> Zet op boodschappenlijst
                     </button>
                 </div>
@@ -585,8 +597,8 @@
 
     <!-- Melding Toast (Vervangt alert) -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-        <div class="bg-stone-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium">
-            <i class="fa-solid fa-circle-check text-brand-400 text-lg"></i>
+        <div class="bg-earth-900 text-cream-50 px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium">
+            <i class="fa-solid fa-circle-check text-sage-200 text-lg"></i>
             <span id="toast-message">Melding</span>
         </div>
     </div>
@@ -769,7 +781,7 @@
                     { name: "risottorijst", keyword: "rijst", amount: 200, unit: "g" },
                     { name: "kipdijfilet", keyword: "kip", amount: 300, unit: "g" },
                     { name: "kastanjechampignons", keyword: "champignons", amount: 250, unit: "g" },
-                    { name: "'nduja pasta", keyword: "'nduja", amount: 1, unit: "el" },
+                    { name: "'nduja pasta", keyword: "\'nduja", amount: 1, unit: "el" },
                     { name: "kippenbouillon", keyword: "bouillon", amount: 750, unit: "ml" }
                 ],
                 steps: [
@@ -800,6 +812,282 @@
                     "Kneed ondertussen het gehakt met de sambal en rol er kleine balletjes van.",
                     "Bak de gehaktballetjes in een koekenpan in 12 minuten rondom goudbruin en gaar.",
                     "Giet de aardappelen en groenten af, voeg de melk toe en stamp tot een smeuïge hutspot. Serveer met de pittige balletjes."
+                ]
+            },
+            {
+                id: 10,
+                title: "Pasta Aglio e Olio – Knoflook-Olie Pasta",
+                category: "Snel",
+                tags: ["Snel", "Vegetarisch", "Pasta", "Budget"],
+                time: "12 min",
+                kcal: 450,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "spaghetti", keyword: "spaghetti", amount: 200, unit: "g" },
+                    { name: "knoflookteentjes", keyword: "knoflook", amount: 2, unit: "stuks" },
+                    { name: "olijfolie", keyword: "olie", amount: 4, unit: "el" },
+                    { name: "geraspte kaas", keyword: "kaas", amount: 50, unit: "g" }
+                ],
+                steps: [
+                    "Kook de spaghetti beetgaar volgens de verpakking.",
+                    "Fruit ondertussen de dun gesneden knoflook zachtjes in een ruime scheut olijfolie zonder dat deze verbrandt.",
+                    "Schep de spaghetti met een klein scheutje kookvocht door de knoflookolie en maak af met de geraspte kaas."
+                ]
+            },
+            {
+                id: 11,
+                title: "Roerbak Udon-Noedels met Ei en Sojasaus",
+                category: "Snel",
+                tags: ["Snel", "Vegetarisch", "Aziatisch"],
+                time: "10 min",
+                kcal: 380,
+                baseServings: 1,
+                image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "kant-en-klare udon-noedels", keyword: "noedels", amount: 200, unit: "g" },
+                    { name: "eieren", keyword: "ei", amount: 2, unit: "stuks" },
+                    { name: "bosui", keyword: "bosui", amount: 1, unit: "stuks" },
+                    { name: "sojasaus", keyword: "sojasaus", amount: 2, unit: "el" }
+                ],
+                steps: [
+                    "Bak een roerei in een wok met een beetje olie en schuif het opzij.",
+                    "Voeg de noedels, in ringetjes gesneden bosui en sojasaus toe.",
+                    "Wok alles nog 3 minuten op hoog vuur en meng goed door elkaar."
+                ]
+            },
+            {
+                id: 12,
+                title: "Gnocchi met Boter, Knoflook en Kaas",
+                category: "Comfort Food",
+                tags: ["Comfort Food", "Snel", "Vegetarisch"],
+                time: "10 min",
+                kcal: 520,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "verse gnocchi", keyword: "gnocchi", amount: 400, unit: "g" },
+                    { name: "roomboter", keyword: "boter", amount: 3, unit: "el" },
+                    { name: "knoflookteentje", keyword: "knoflook", amount: 1, unit: "stuks" },
+                    { name: "geraspte kaas", keyword: "kaas", amount: 50, unit: "g" }
+                ],
+                steps: [
+                    "Bak de gnocchi direct (zonder vooraf koken) in een ruime koekenpan met de roomboter.",
+                    "Bak in 7 minuten goudbruin en krokant en voeg halverwege de fijngehakte knoflook toe.",
+                    "Haal van het vuur en strooi op het laatst de kaas erover."
+                ]
+            },
+            {
+                id: 13,
+                title: "Wentelteefjes van Oud Brood",
+                category: "Snel",
+                tags: ["Snel", "Ontbijt", "Zoet", "Budget"],
+                time: "10 min",
+                kcal: 350,
+                baseServings: 1,
+                image: "image_58f12c.jpg",
+                ingredients: [
+                    { name: "sneetjes oud brood", keyword: "brood", amount: 3, unit: "stuks" },
+                    { name: "ei", keyword: "ei", amount: 1, unit: "stuks" },
+                    { name: "melk", keyword: "melk", amount: 100, unit: "ml" },
+                    { name: "kaneel & suiker", keyword: "suiker", amount: 1, unit: "el" }
+                ],
+                steps: [
+                    "Klop het ei los in een diep bord samen met de melk en een snufje kaneel.",
+                    "Haal de sneetjes brood één voor één door het eimengsel zodat ze zich volzuigen.",
+                    "Bak ze in een koekenpan met een klontje boter aan beide kanten goudbruin.",
+                    "Bestrooi met suiker voor het serveren."
+                ]
+            },
+            {
+                id: 14,
+                title: "Pita-Pizza met Salami en Kaas",
+                category: "Comfort Food",
+                tags: ["Comfort Food", "Snel", "Snack"],
+                time: "10 min",
+                kcal: 410,
+                baseServings: 1,
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "pitabroodjes", keyword: "pita", amount: 2, unit: "stuks" },
+                    { name: "tomatenpuree", keyword: "tomaten", amount: 2, unit: "el" },
+                    { name: "geraspte kaas", keyword: "kaas", amount: 50, unit: "g" },
+                    { name: "plakjes salami", keyword: "salami", amount: 4, unit: "stuks" }
+                ],
+                steps: [
+                    "Snijd de pitabroodjes open zodat je 4 dunne bodems (mini-pizza's) hebt.",
+                    "Besmeer elke bodem met een dun laagje tomatenpuree.",
+                    "Beleg met kaas en de plakjes salami.",
+                    "Bak ze 7 minuten in de oven of airfryer op 200 °C tot de kaas gesmolten is."
+                ]
+            },
+            {
+                id: 15,
+                title: "Avocado-Toast met Gebakken Ei",
+                category: "Snel",
+                tags: ["Snel", "Gezond", "Ontbijt"],
+                time: "8 min",
+                kcal: 480,
+                baseServings: 1,
+                image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "sneetjes brood", keyword: "brood", amount: 2, unit: "stuks" },
+                    { name: "rijpe avocado", keyword: "avocado", amount: 1, unit: "stuks" },
+                    { name: "eieren", keyword: "ei", amount: 2, unit: "stuks" }
+                ],
+                steps: [
+                    "Rooster het brood in een broodrooster of koekenpan.",
+                    "Prak de avocado met een vork en verdeel over de toast. Breng op smaak met peper en zout.",
+                    "Bak ondertussen spiegeleieren in een pan.",
+                    "Leg de gebakken eieren bovenop de avocado-toast."
+                ]
+            },
+            {
+                id: 16,
+                title: "Croissant-Tosti met Kaas",
+                category: "Comfort Food",
+                tags: ["Comfort Food", "Snel", "Ontbijt"],
+                time: "6 min",
+                kcal: 320,
+                baseServings: 1,
+                image: "https://images.unsplash.com/photo-1528735000313-039ec3a473f0?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "croissants (van gisteren)", keyword: "croissant", amount: 2, unit: "stuks" },
+                    { name: "plakjes kaas", keyword: "kaas", amount: 2, unit: "stuks" },
+                    { name: "plakjes ham (optioneel)", keyword: "ham", amount: 2, unit: "stuks" }
+                ],
+                steps: [
+                    "Snijd de croissants open.",
+                    "Beleg met de kaas en eventueel ham.",
+                    "Druk de croissants plat en bak 3 minuten in een heet tosti-ijzer tot ze knapperig zijn en de kaas gesmolten is."
+                ]
+            },
+            {
+                id: 17,
+                title: "Bladerdeeg-Pizzarolletjes",
+                category: "Comfort Food",
+                tags: ["Comfort Food", "Snack", "Vegetarisch"],
+                time: "15 min",
+                kcal: 390,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "plakjes bladerdeeg (ontdooid)", keyword: "bladerdeeg", amount: 3, unit: "stuks" },
+                    { name: "tomatensaus of pesto", keyword: "saus", amount: 2, unit: "el" },
+                    { name: "geraspte kaas", keyword: "kaas", amount: 75, unit: "g" }
+                ],
+                steps: [
+                    "Leg de ontdooide plakjes bladerdeeg in de lengte licht overlappend tegen elkaar en druk de naden vast.",
+                    "Besmeer het deeg met tomatensaus en strooi de geraspte kaas erover.",
+                    "Rol het deeg strak op en snijd de rol in plakjes van ongeveer 2 cm dik.",
+                    "Leg ze plat op een bakplaat en bak 12 minuten op 200 °C goudbruin."
+                ]
+            },
+            {
+                id: 18,
+                title: "Knakworstjes in Bladerdeeg",
+                category: "Snack",
+                tags: ["Comfort Food", "Snack", "Snel"],
+                time: "15 min",
+                kcal: 420,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1605333398744-b0409743f548?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "plakjes bladerdeeg (ontdooid)", keyword: "bladerdeeg", amount: 2, unit: "stuks" },
+                    { name: "knakworstjes", keyword: "worst", amount: 4, unit: "stuks" },
+                    { name: "mosterd of ketchup", keyword: "saus", amount: 1, unit: "el" }
+                ],
+                steps: [
+                    "Snijd elk vierkant plakje bladerdeeg diagonaal (schuin) doormidden zodat je driehoeken krijgt.",
+                    "Besmeer eventueel met een beetje mosterd of ketchup.",
+                    "Leg een knakworstje op de brede kant van het driehoekje en rol strak op.",
+                    "Bak ze in 12 tot 15 minuten goudbruin en gaar in de oven of airfryer op 200 °C."
+                ]
+            },
+            {
+                id: 19,
+                title: "Nacho's uit de Magnetron of Oven",
+                category: "Snack",
+                tags: ["Snack", "Snel", "Vegetarisch"],
+                time: "8 min",
+                kcal: 350,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1513456811591-a1ed46d15026?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "tortillachips", keyword: "chips", amount: 150, unit: "g" },
+                    { name: "geraspte kaas", keyword: "kaas", amount: 75, unit: "g" },
+                    { name: "restje bonen of mais", keyword: "bonen", amount: 50, unit: "g" },
+                    { name: "salsa of tomaatblokjes", keyword: "salsa", amount: 3, unit: "el" }
+                ],
+                steps: [
+                    "Verdeel de tortillachips over een magnetronbestendig bord of ovenschaal.",
+                    "Verdeel de bonen/mais en de salsa eroverheen.",
+                    "Strooi royaal af met de geraspte kaas.",
+                    "Verwarm 1,5 minuut in de magnetron op hoge stand, of 6 minuten in de oven op 180 °C tot de kaas smelt."
+                ]
+            },
+            {
+                id: 20,
+                title: "Gebakken Banaan met Kaneel",
+                category: "Snel",
+                tags: ["Snel", "Zoet", "Snack", "Vegetarisch"],
+                time: "6 min",
+                kcal: 180,
+                baseServings: 1,
+                image: "https://images.unsplash.com/photo-1596647414343-42173f4b66df?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "rijpe banaan", keyword: "banaan", amount: 1, unit: "stuks" },
+                    { name: "boter", keyword: "boter", amount: 1, unit: "klontje" },
+                    { name: "snufje kaneel", keyword: "kaneel", amount: 1, unit: "snufje" }
+                ],
+                steps: [
+                    "Snijd de banaan in dikke plakjes of in de lengte doormidden.",
+                    "Verhit de boter in een koekenpan.",
+                    "Bak de banaan 2 minuten per kant goudbruin op middelhoog vuur.",
+                    "Bestrooi rijkelijk met kaneel en serveer direct."
+                ]
+            },
+            {
+                id: 21,
+                title: "Bladerdeeg-Appelflapjes",
+                category: "Comfort Food",
+                tags: ["Zoet", "Comfort Food"],
+                time: "15 min",
+                kcal: 310,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1600832049962-d2780e557b49?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "plakjes bladerdeeg (ontdooid)", keyword: "bladerdeeg", amount: 2, unit: "stuks" },
+                    { name: "halve appel", keyword: "appel", amount: 0.5, unit: "stuks" },
+                    { name: "suiker", keyword: "suiker", amount: 1, unit: "el" },
+                    { name: "snufje kaneel", keyword: "kaneel", amount: 1, unit: "snufje" }
+                ],
+                steps: [
+                    "Schil de appel, snijd in kleine blokjes en hussel in een kom met suiker en kaneel.",
+                    "Schep het appelmengsel in het midden van de ontdooide plakjes bladerdeeg.",
+                    "Vouw dicht tot een driehoek en druk de randen stevig aan met een vork.",
+                    "Bak 12 minuten op 200 °C tot ze goudbruin en gerezen zijn."
+                ]
+            },
+            {
+                id: 22,
+                title: "Yoghurt-Muesli Parfait met Oud Fruit",
+                category: "Snel",
+                tags: ["Snel", "Ontbijt", "Gezond"],
+                time: "5 min",
+                kcal: 250,
+                baseServings: 1,
+                image: "https://images.unsplash.com/photo-1488477181946-ce01f9c8ef78?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "yoghurt of kwark", keyword: "yoghurt", amount: 200, unit: "g" },
+                    { name: "restje zacht fruit", keyword: "fruit", amount: 1, unit: "handje" },
+                    { name: "muesli of verkruimelde koekjes", keyword: "muesli", amount: 3, unit: "el" }
+                ],
+                steps: [
+                    "Was het fruit en snijd grotere stukken (zoals appel of peer) in kleine blokjes.",
+                    "Neem een glas of doorzichtig schaaltje.",
+                    "Bouw laagjes op: begin met yoghurt, dan wat fruit, dan muesli/koekkruimels, en herhaal dit.",
+                    "Serveer direct of bewaar afgedekt in de koelkast tot gebruik."
                 ]
             }
         ];
@@ -861,12 +1149,12 @@
 
             ingredientsContainer.classList.remove('hidden');
             ingredientsList.innerHTML = selectedIngredients.map(ing => {
-                const amountLabel = ing.amount !== null ? `<span class="bg-brand-200/80 text-brand-950 px-1.5 py-0.5 rounded-md font-bold">${ing.amount}${ing.unit}</span>` : '';
+                const amountLabel = ing.amount !== null ? `<span class="bg-sage-200 text-brand-900 px-1.5 py-0.5 rounded-md font-bold">${ing.amount}${ing.unit}</span>` : '';
                 return `
-                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-100 text-brand-900 text-xs font-semibold">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sage-100 text-brand-900 border border-sage-200 text-xs font-semibold">
                     ${amountLabel}
                     <span>${ing.name}</span>
-                    <button type="button" onclick="removeIngredient('${ing.name.replace(/'/g, "\\'")}')" class="text-brand-600 hover:text-brand-950 focus:outline-none ml-0.5">
+                    <button type="button" onclick="removeIngredient('${ing.name.replace(/'/g, "\\'")}')" class="text-brand-600 hover:text-brand-900 focus:outline-none ml-0.5">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </span>
@@ -966,42 +1254,42 @@
                 let matchBadge = '';
                 if (selectedIngredients.length > 0 && stockEval.matchedIngredients > 0) {
                     if (stockEval.allMatchedHaveEnough) {
-                        matchBadge = `<span class="absolute top-3 right-3 bg-sage-700 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                        matchBadge = `<span class="absolute top-3 right-3 bg-brand-600 text-cream-50 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                              <i class="fa-solid fa-check mr-1"></i>Voldoende in huis (${stockEval.matchedIngredients})
                            </span>`;
                     } else {
-                        matchBadge = `<span class="absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                        matchBadge = `<span class="absolute top-3 right-3 bg-earth-700 text-cream-50 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                              <i class="fa-solid fa-scale-balanced mr-1"></i>Iets minder in huis
                            </span>`;
                     }
                 }
 
                 return `
-                <article onclick="openRecipeModal(${recipe.id})" class="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                    <div class="relative h-56 overflow-hidden bg-stone-200">
+                <article onclick="openRecipeModal(${recipe.id})" class="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl hover:shadow-earth-900/5 hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <div class="relative h-56 overflow-hidden bg-cream-200">
                         <img 
                             src="${recipe.image}" 
-                            onerror="this.src='https://placehold.co/600x400/f97316/ffffff?text=${encodeURIComponent(recipe.title)}'"
+                            onerror="this.src='https://placehold.co/600x400/606c38/fdfcf8?text=${encodeURIComponent(recipe.title)}'"
                             alt="${recipe.title}" 
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         >
-                        <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-stone-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                        <span class="absolute top-3 left-3 bg-cream-50/95 backdrop-blur-sm text-earth-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                             ${recipe.category}
                         </span>
                         ${matchBadge}
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center gap-3 text-xs text-stone-500 mb-2">
+                            <div class="flex items-center gap-3 text-xs text-earth-600 mb-2">
                                 <span><i class="fa-regular fa-clock text-brand-500 mr-1"></i>${recipe.time}</span>
                                 <span>•</span>
                                 <span><i class="fa-solid fa-fire text-brand-500 mr-1"></i>${recipe.kcal} kcal</span>
                             </div>
-                            <h3 class="font-serif text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors">
+                            <h3 class="font-serif text-xl font-bold text-earth-900 group-hover:text-brand-600 transition-colors">
                                 ${recipe.title}
                             </h3>
                         </div>
-                        <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-sm font-semibold text-brand-600">
+                        <div class="mt-5 pt-4 border-t border-cream-100 flex items-center justify-between text-sm font-semibold text-brand-600">
                             <span>Bekijk recept</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
@@ -1014,11 +1302,11 @@
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach(b => {
-                    b.classList.remove('bg-stone-900', 'text-white');
-                    b.classList.add('bg-stone-100', 'text-stone-700');
+                    b.classList.remove('bg-brand-500', 'text-cream-50', 'shadow-sm');
+                    b.classList.add('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
                 });
-                btn.classList.remove('bg-stone-100', 'text-stone-700');
-                btn.classList.add('bg-stone-900', 'text-white');
+                btn.classList.remove('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
+                btn.classList.add('bg-brand-500', 'text-cream-50', 'shadow-sm');
 
                 currentCategory = btn.getAttribute('data-category');
                 renderRecipes();
@@ -1045,11 +1333,11 @@
             document.getElementById('ingredient-amount').value = "";
             renderIngredientTags();
             filterButtons.forEach(b => {
-                b.classList.remove('bg-stone-900', 'text-white');
-                b.classList.add('bg-stone-100', 'text-stone-700');
+                b.classList.remove('bg-brand-500', 'text-cream-50', 'shadow-sm');
+                b.classList.add('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
                 if (b.getAttribute('data-category') === "Alles") {
-                    b.classList.remove('bg-stone-100', 'text-stone-700');
-                    b.classList.add('bg-stone-900', 'text-white');
+                    b.classList.remove('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
+                    b.classList.add('bg-brand-500', 'text-cream-50', 'shadow-sm');
                 }
             });
             renderRecipes();
@@ -1125,20 +1413,20 @@
                 let statusHtml = '';
                 if (userItem) {
                     if (userItem.amount === null) {
-                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-sage-700 bg-sage-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-check mr-1"></i>In huis</span>`;
+                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-brand-800 bg-sage-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-check mr-1"></i>In huis</span>`;
                     } else if (userItem.amount >= scaledAmount) {
-                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-sage-700 bg-sage-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-check mr-1"></i>Genoeg (${userItem.amount}${userItem.unit} in huis)</span>`;
+                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-brand-800 bg-sage-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-check mr-1"></i>Genoeg (${userItem.amount}${userItem.unit} in huis)</span>`;
                     } else {
                         const missing = Math.round((scaledAmount - userItem.amount) * 10) / 10;
-                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Je hebt ${userItem.amount}${userItem.unit} (mis nog ${missing}${rIng.unit})</span>`;
+                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-earth-800 bg-cream-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Je hebt ${userItem.amount}${userItem.unit} (mis nog ${missing}${rIng.unit})</span>`;
                     }
                 }
 
                 return `
-                <li class="flex flex-col bg-stone-50 p-2.5 rounded-xl border border-stone-100">
+                <li class="flex flex-col bg-white p-2.5 rounded-xl border border-cream-200">
                     <div class="flex items-start gap-2">
                         <span class="text-brand-500 font-bold">•</span>
-                        <span><strong class="text-stone-900">${scaledAmount} ${rIng.unit}</strong> ${rIng.name}</span>
+                        <span><strong class="text-earth-900">${scaledAmount} ${rIng.unit}</strong> ${rIng.name}</span>
                     </div>
                     ${statusHtml ? `<div class="pl-4">${statusHtml}</div>` : ''}
                 </li>`;
