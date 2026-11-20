@@ -75,9 +75,10 @@
 
                 <!-- Desktop Navigatie -->
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#ontdekken" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Ontdek Recepten</a>
-                    <a href="#functies" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Hoe het werkt</a>
-                    <a href="#reviews" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Ervaringen</a>
+                    <a href="#" onclick="showAppToast()" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Alle recepten</a>
+                    <a href="#" onclick="showAppToast()" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Recepten met restjes</a>
+                    <a href="#ons-idee" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Ons idee</a>
+                    <a href="#functies" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">De app</a>
                 </nav>
 
                 <!-- CTA Knoppen -->
@@ -101,9 +102,10 @@
 
         <!-- Mobiel Dropdown Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-cream-50 border-b border-cream-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
-            <a href="#ontdekken" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Ontdek Recepten</a>
-            <a href="#functies" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Hoe het werkt</a>
-            <a href="#reviews" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Ervaringen</a>
+            <a href="#" onclick="showAppToast()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Alle recepten</a>
+            <a href="#" onclick="showAppToast()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Recepten met restjes</a>
+            <a href="#ons-idee" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Ons idee</a>
+            <a href="#functies" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">De app</a>
             <div class="pt-3 border-t border-cream-200 flex flex-col gap-2">
                 <a href="#download" class="w-full text-center bg-brand-500 text-cream-50 font-semibold py-3 rounded-xl shadow-sm">
                     Download de App
@@ -113,7 +115,7 @@
     </header>
 
     <!-- Hero Sectie -->
-    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-cream-50 to-sage-50/60">
+    <section id="hero" class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-cream-50 to-sage-50/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
@@ -196,10 +198,11 @@
                                 <div id="selected-ingredients-list" class="flex flex-wrap gap-2">
                                     <!-- Dynamische ingredient pills -->
                                 </div>
-                                <div class="mt-3 pt-2 flex justify-end">
-                                    <button type="button" onclick="scrollToRecipes()" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
-                                        Bekijk bijpassende recepten <i class="fa-solid fa-arrow-down"></i>
-                                    </button>
+                                <div class="mt-3 pt-3 border-t border-cream-100 flex justify-between items-center">
+                                    <span id="recipe-match-count" class="text-xs font-bold text-brand-700"></span>
+                                    <a href="#download" class="text-xs font-bold text-cream-50 bg-brand-500 hover:bg-brand-600 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                                        Open de app <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -268,57 +271,31 @@
         </div>
     </section>
 
-    <!-- Ontdek Recepten Sectie (Interactief Filterbaar) -->
-    <section id="ontdekken" class="py-16 sm:py-24 bg-cream-100/70 border-y border-cream-200">
+    <!-- Ons Idee Sectie -->
+    <section id="ons-idee" class="py-16 sm:py-24 bg-cream-100/70 border-y border-cream-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Sectie Header & Filters -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-                <div>
-                    <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Proef de app</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Populaire Recepten</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Onze Missie</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 leading-tight">
+                        Van overgebleven restjes toch nog een lekker recept maken.
+                    </h2>
+                    <p class="text-base sm:text-lg text-earth-700 leading-relaxed">
+                        Waarom gooien we zoveel goed eten weg? Bij LeftOverly geloven we dat in elke koelkast een heerlijke maaltijd schuilt, zelfs met die paar verdwaalde restjes groenten of dat halve pakje pasta.
+                    </p>
+                    <p class="text-base sm:text-lg text-earth-700 leading-relaxed">
+                        Door creatief te koken met wat je al in huis hebt, bespaar je niet alleen geld op je boodschappen, maar help je ook actief mee om voedselverspilling tegen te gaan. Goed voor je portemonnee, én goed voor de planeet!
+                    </p>
+                    <div class="pt-4">
+                        <a href="#functies" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-800 transition-colors">
+                            Ontdek hoe de app werkt <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
                 </div>
-
-                <!-- Categorie Filter Knoppen -->
-                <div id="category-filters" class="flex flex-wrap gap-2">
-                    <button data-category="Alles" class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold bg-brand-500 text-cream-50 transition-all shadow-sm">
-                        Alles
-                    </button>
-                    <button data-category="Snel" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-cream-50 border border-cream-200 text-earth-800 hover:bg-sage-100 transition-all">
-                        ⚡ Binnen 20 min
-                    </button>
-                    <button data-category="Vegetarisch" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-cream-50 border border-cream-200 text-earth-800 hover:bg-sage-100 transition-all">
-                        🌱 Vegetarisch
-                    </button>
-                    <button data-category="Comfort Food" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-cream-50 border border-cream-200 text-earth-800 hover:bg-sage-100 transition-all">
-                        🍝 Comfort Food
-                    </button>
+                <div class="relative rounded-3xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a872f?auto=format&fit=crop&w=800&q=80" alt="Koken met restjes" class="w-full h-full object-cover aspect-square md:aspect-[4/3]">
                 </div>
             </div>
-
-            <!-- Zoekstatus melding indien actief -->
-            <div id="search-status" class="hidden mb-6 flex items-center justify-between bg-sage-100 border border-sage-200 px-4 py-3 rounded-2xl">
-                <span id="search-status-text" class="text-sm text-brand-900 font-medium"></span>
-                <button onclick="resetFilters()" class="text-xs font-bold text-brand-600 hover:text-brand-900 underline">
-                    Wis filters
-                </button>
-            </div>
-
-            <!-- Recepten Grid (Wordt gevuld via JavaScript) -->
-            <div id="recipes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Kaarten worden hier dynamisch ingeladen -->
-            </div>
-
-            <!-- Lege staat als er geen recepten gevonden zijn -->
-            <div id="empty-state" class="hidden text-center py-16 bg-cream-50 rounded-3xl border border-dashed border-cream-200">
-                <i class="fa-solid fa-bowl-rice text-4xl text-earth-500 mb-3"></i>
-                <h3 class="text-lg font-bold text-earth-900">Geen recepten gevonden</h3>
-                <p class="text-sm text-earth-700 mt-1 mb-4">Probeer een andere zoekterm of kies een andere categorie.</p>
-                <button onclick="resetFilters()" class="bg-brand-500 text-cream-50 px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-600 transition-colors">
-                    Toon alle recepten
-                </button>
-            </div>
-
         </div>
     </section>
 
@@ -1099,13 +1076,9 @@
         let activeScaleFactor = 1;
 
         // DOM Elementen
-        const recipesGrid = document.getElementById('recipes-grid');
-        const emptyState = document.getElementById('empty-state');
-        const searchStatus = document.getElementById('search-status');
-        const searchStatusText = document.getElementById('search-status-text');
-        const filterButtons = document.querySelectorAll('.filter-btn');
         const ingredientsContainer = document.getElementById('selected-ingredients-container');
         const ingredientsList = document.getElementById('selected-ingredients-list');
+        const recipeMatchCount = document.getElementById('recipe-match-count');
 
         // Helper: controleer of een gebruikers-ingrediënt matcht met een recept-ingrediënt
         function isIngredientMatch(userItem, recipeIng) {
@@ -1193,125 +1166,38 @@
             }
             
             renderIngredientTags();
-            renderRecipes();
+            updateRecipeCount();
         }
 
         // Verwijder een specifiek ingrediënt
         function removeIngredient(name) {
             selectedIngredients = selectedIngredients.filter(item => item.name !== name);
             renderIngredientTags();
-            renderRecipes();
+            updateRecipeCount();
         }
 
         // Wis alle gekozen ingrediënten
         function clearIngredients() {
             selectedIngredients = [];
             renderIngredientTags();
-            renderRecipes();
+            updateRecipeCount();
         }
 
-        // Scroll soepel naar de recepten sectie
-        function scrollToRecipes() {
-            document.getElementById('ontdekken').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Render receptenkaarten op basis van actieve filters, ingrediënten én hoeveelheden
-        function renderRecipes() {
+        // Bereken hoeveel recepten matchen en toon dit in de hero
+        function updateRecipeCount() {
             const filtered = recipes.filter(recipe => {
-                const matchesCategory = currentCategory === "Alles" || recipe.tags.includes(currentCategory);
-                
-                const matchesIngredients = selectedIngredients.length === 0 || selectedIngredients.some(userItem => {
+                if (selectedIngredients.length === 0) return true;
+                return selectedIngredients.some(userItem => {
                     return recipe.title.toLowerCase().includes(userItem.name.toLowerCase()) ||
                            recipe.tags.some(t => t.toLowerCase().includes(userItem.name.toLowerCase())) ||
                            recipe.ingredients.some(rIng => isIngredientMatch(userItem, rIng));
                 });
-                
-                return matchesCategory && matchesIngredients;
             });
 
-            // Update zoekstatus balk
-            if (selectedIngredients.length > 0 || currentCategory !== "Alles") {
-                searchStatus.classList.remove('hidden');
-                const ingText = selectedIngredients.length > 0 
-                    ? `met: ${selectedIngredients.map(i => i.amount ? `${i.amount}${i.unit} ${i.name}` : i.name).join(', ')}` 
-                    : '';
-                const catText = currentCategory !== 'Alles' ? `in '${currentCategory}'` : '';
-                searchStatusText.textContent = `${filtered.length} recept(en) gevonden ${catText} ${ingText}`;
-            } else {
-                searchStatus.classList.add('hidden');
+            if (recipeMatchCount) {
+                recipeMatchCount.innerHTML = `<i class="fa-solid fa-utensils mr-1"></i> ${filtered.length} recepten gevonden in de app!`;
             }
-
-            if (filtered.length === 0) {
-                recipesGrid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
-            recipesGrid.innerHTML = filtered.map(recipe => {
-                const stockEval = evaluateRecipeStock(recipe, 1);
-
-                let matchBadge = '';
-                if (selectedIngredients.length > 0 && stockEval.matchedIngredients > 0) {
-                    if (stockEval.allMatchedHaveEnough) {
-                        matchBadge = `<span class="absolute top-3 right-3 bg-brand-600 text-cream-50 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                             <i class="fa-solid fa-check mr-1"></i>Voldoende in huis (${stockEval.matchedIngredients})
-                           </span>`;
-                    } else {
-                        matchBadge = `<span class="absolute top-3 right-3 bg-earth-700 text-cream-50 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                             <i class="fa-solid fa-scale-balanced mr-1"></i>Iets minder in huis
-                           </span>`;
-                    }
-                }
-
-                return `
-                <article onclick="openRecipeModal(${recipe.id})" class="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-cream-200 shadow-sm hover:shadow-xl hover:shadow-earth-900/5 hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                    <div class="relative h-56 overflow-hidden bg-cream-200">
-                        <img 
-                            src="${recipe.image}" 
-                            onerror="this.src='https://placehold.co/600x400/606c38/fdfcf8?text=${encodeURIComponent(recipe.title)}'"
-                            alt="${recipe.title}" 
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        >
-                        <span class="absolute top-3 left-3 bg-cream-50/95 backdrop-blur-sm text-earth-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                            ${recipe.category}
-                        </span>
-                        ${matchBadge}
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center gap-3 text-xs text-earth-600 mb-2">
-                                <span><i class="fa-regular fa-clock text-brand-500 mr-1"></i>${recipe.time}</span>
-                                <span>•</span>
-                                <span><i class="fa-solid fa-fire text-brand-500 mr-1"></i>${recipe.kcal} kcal</span>
-                            </div>
-                            <h3 class="font-serif text-xl font-bold text-earth-900 group-hover:text-brand-600 transition-colors">
-                                ${recipe.title}
-                            </h3>
-                        </div>
-                        <div class="mt-5 pt-4 border-t border-cream-100 flex items-center justify-between text-sm font-semibold text-brand-600">
-                            <span>Bekijk recept</span>
-                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                        </div>
-                    </div>
-                </article>
-            `}).join('');
         }
-
-        // Filter knoppen afhandelen
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterButtons.forEach(b => {
-                    b.classList.remove('bg-brand-500', 'text-cream-50', 'shadow-sm');
-                    b.classList.add('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
-                });
-                btn.classList.remove('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
-                btn.classList.add('bg-brand-500', 'text-cream-50', 'shadow-sm');
-
-                currentCategory = btn.getAttribute('data-category');
-                renderRecipes();
-            });
-        });
 
         // Formulier voor toevoegen van ingrediënten + hoeveelheid afhandelen
         document.getElementById('ingredient-add-form').addEventListener('submit', (e) => {
@@ -1324,24 +1210,6 @@
             input.value = "";
             amountInput.value = "";
         });
-
-        // Alle filters en ingrediënten resetten
-        function resetFilters() {
-            currentCategory = "Alles";
-            selectedIngredients = [];
-            document.getElementById('ingredient-input').value = "";
-            document.getElementById('ingredient-amount').value = "";
-            renderIngredientTags();
-            filterButtons.forEach(b => {
-                b.classList.remove('bg-brand-500', 'text-cream-50', 'shadow-sm');
-                b.classList.add('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
-                if (b.getAttribute('data-category') === "Alles") {
-                    b.classList.remove('bg-cream-50', 'border', 'border-cream-200', 'text-earth-800');
-                    b.classList.add('bg-brand-500', 'text-cream-50', 'shadow-sm');
-                }
-            });
-            renderRecipes();
-        }
 
         // Barcode Scanner Modaal functies
         function openScannerModal() {
@@ -1474,8 +1342,12 @@
             }, 3000);
         }
 
+        function showAppToast() {
+            showToast("Download de LeftOverly app om alle recepten te bekijken!");
+        }
+
         // Initialiseer de pagina
-        window.addEventListener('DOMContentLoaded', renderRecipes);
+        window.addEventListener('DOMContentLoaded', updateRecipeCount);
     </script>
 </body>
 </html>
