@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmaakPlek — Jouw Dagelijkse Kookinspiratie</title>
+    <title>LeftOverly — Kook Slim met Wat Je Al in Huis Hebt</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,7 +58,7 @@
                     <div class="w-10 h-10 bg-brand-500 text-white rounded-2xl flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-utensils text-lg"></i>
                     </div>
-                    <span class="font-serif text-2xl font-bold tracking-tight text-stone-900">Smaak<span class="text-brand-500">Plek</span></span>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-stone-900">Left<span class="text-brand-500">Overly</span></span>
                 </a>
 
                 <!-- Desktop Navigatie -->
@@ -113,34 +113,92 @@
                     </div>
                     
                     <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight">
-                        Kook elke dag iets <span class="text-brand-500 italic">bijzonders</span> zonder stress.
+                        Kook iets <span class="text-brand-500 italic">heerlijks</span> met wat je nog hebt liggen.
                     </h1>
                     
                     <p class="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        Van snelle doordeweekse pasta's tot uitgebreide weekenddiners. Vind recepten op basis van wat je al in huis hebt, maak slimme boodschappenlijstjes en kook stap-voor-stap.
+                        Voeg de ingrediënten uit je koelkast of voorraadkast toe, of scan direct de barcode van je producten. LeftOverly tovert jouw restjes direct om tot verrassende recepten.
                     </p>
 
-                    <!-- Interactieve Zoekbalk -->
+                    <!-- Interactieve Ingrediënten & Barcode Balk -->
                     <div class="max-w-xl mx-auto lg:mx-0">
-                        <form id="hero-search-form" class="relative flex items-center bg-white p-2 rounded-2xl shadow-lg shadow-stone-200/70 border border-stone-200 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/10 transition-all">
-                            <i class="fa-solid fa-magnifying-glass text-stone-400 ml-3 sm:ml-4 text-lg"></i>
-                            <input 
-                                type="text" 
-                                id="hero-search-input"
-                                placeholder="Zoek op ingrediënt of gerecht (bijv. pasta, kip)..." 
-                                class="w-full px-3 sm:px-4 py-2.5 text-sm sm:text-base text-stone-800 placeholder-stone-400 focus:outline-none bg-transparent"
-                            >
-                            <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-5 sm:px-6 py-3 rounded-xl transition-colors shrink-0 shadow-sm">
-                                Zoeken
-                            </button>
-                        </form>
+                        <div class="bg-white p-3 rounded-2xl shadow-lg shadow-stone-200/70 border border-stone-200 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/10 transition-all">
+                            <form id="ingredient-add-form" class="flex flex-wrap sm:flex-nowrap items-center gap-2">
+                                <div class="flex items-center flex-1 min-w-[160px]">
+                                    <i class="fa-solid fa-basket-shopping text-brand-500 ml-2 sm:ml-3 text-lg"></i>
+                                    <input 
+                                        type="text" 
+                                        id="ingredient-input"
+                                        placeholder="Ingrediënt (bijv. pasta)..." 
+                                        class="w-full px-2 py-2 text-sm sm:text-base text-stone-800 placeholder-stone-400 focus:outline-none bg-transparent"
+                                    >
+                                </div>
+
+                                <!-- Hoeveelheid & Eenheid -->
+                                <div class="flex items-center bg-stone-50 border border-stone-200 rounded-xl px-2 py-1 shrink-0">
+                                    <input 
+                                        type="number" 
+                                        id="ingredient-amount"
+                                        min="1"
+                                        step="any"
+                                        placeholder="Aantal" 
+                                        class="w-16 text-sm text-stone-800 placeholder-stone-400 focus:outline-none bg-transparent text-right pr-1"
+                                    >
+                                    <select id="ingredient-unit" class="text-xs font-semibold text-stone-600 bg-transparent focus:outline-none cursor-pointer pr-1">
+                                        <option value="g">g</option>
+                                        <option value="stuks">stuks</option>
+                                        <option value="ml">ml</option>
+                                        <option value="el">el</option>
+                                        <option value="blik">blik</option>
+                                    </select>
+                                </div>
+
+                                <div class="flex items-center gap-1.5 w-full sm:w-auto justify-end">
+                                    <!-- Barcode Scan Knop -->
+                                    <button 
+                                        type="button" 
+                                        onclick="openScannerModal()" 
+                                        title="Scan barcode van een product"
+                                        class="p-2.5 sm:px-3 sm:py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium text-sm flex items-center gap-1.5 transition-colors shrink-0"
+                                    >
+                                        <i class="fa-solid fa-barcode text-lg text-stone-800"></i>
+                                        <span class="sm:hidden">Scan</span>
+                                    </button>
+                                    <!-- Toevoegen Knop -->
+                                    <button 
+                                        type="submit" 
+                                        class="flex-1 sm:flex-initial bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0 shadow-sm flex items-center justify-center gap-1.5"
+                                    >
+                                        <i class="fa-solid fa-plus text-sm"></i>
+                                        <span>Voeg toe</span>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Lijst met toegevoegde ingrediënten (Tags) -->
+                            <div id="selected-ingredients-container" class="hidden pt-3 mt-3 border-t border-stone-100">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Jouw voorraad:</span>
+                                    <button type="button" onclick="clearIngredients()" class="text-xs text-stone-400 hover:text-brand-600 transition-colors">Wis alles</button>
+                                </div>
+                                <div id="selected-ingredients-list" class="flex flex-wrap gap-2">
+                                    <!-- Dynamische ingredient pills -->
+                                </div>
+                                <div class="mt-3 pt-2 flex justify-end">
+                                    <button type="button" onclick="scrollToRecipes()" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                                        Bekijk bijpassende recepten <i class="fa-solid fa-arrow-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Snelle suggesties -->
                         <div class="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-stone-500">
-                            <span>Populair:</span>
-                            <button type="button" onclick="quickSearch('Pasta')" class="hover:text-brand-600 underline decoration-stone-300">Pasta</button>
-                            <span>•</span>
-                            <button type="button" onclick="quickSearch('Vegetarisch')" class="hover:text-brand-600 underline decoration-stone-300">Vegetarisch</button>
-                            <span>•</span>
-                            <button type="button" onclick="quickSearch('Binnen 20 min')" class="hover:text-brand-600 underline decoration-stone-300">Binnen 20 min</button>
+                            <span>Snel toevoegen:</span>
+                            <button type="button" onclick="addIngredient('Pasta', 250, 'g')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 250g Pasta</button>
+                            <button type="button" onclick="addIngredient('Feta', 50, 'g')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 50g Feta</button>
+                            <button type="button" onclick="addIngredient('Zalm', 2, 'stuks')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 2 Zalm</button>
+                            <button type="button" onclick="addIngredient('Bloemkool', 1, 'stuks')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-brand-400 hover:text-brand-600 transition-colors">+ 1 Bloemkool</button>
                         </div>
                     </div>
 
@@ -179,7 +237,8 @@
                         >
                         <!-- Zwevende Recept Kaart Overlay -->
                         <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-stone-100 max-w-xs">
-                            <div class="flex items-center gap-3">
+                    <p class="text-stone-700 text-sm italic mb-4">"Sinds ik LeftOverly gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
+                    <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 rounded-xl bg-sage-100 text-sage-700 flex items-center justify-center shrink-0">
                                     <i class="fa-solid fa-clock text-xl"></i>
                                 </div>
@@ -360,7 +419,7 @@
                     Klaar om vanavond iets lekkers op tafel te zetten?
                 </h2>
                 <p class="text-stone-300 text-base sm:text-lg">
-                    Download SmaakPlek gratis voor iOS en Android en ontvang direct toegang tot duizenden recepten.
+                    Download LeftOverly gratis voor iOS en Android en ontvang direct toegang tot duizenden anti-verspillingsrecepten.
                 </p>
                 
                 <!-- App Store Knoppen -->
@@ -392,7 +451,7 @@
                 <div class="w-8 h-8 bg-brand-500 text-white rounded-xl flex items-center justify-center">
                     <i class="fa-solid fa-utensils text-sm"></i>
                 </div>
-                <span class="font-serif text-xl font-bold text-stone-900">Smaak<span class="text-brand-500">Plek</span></span>
+                <span class="font-serif text-xl font-bold text-stone-900">Left<span class="text-brand-500">Overly</span></span>
             </div>
             
             <div class="flex flex-wrap justify-center gap-6 text-sm text-stone-500">
@@ -403,10 +462,62 @@
             </div>
 
             <p class="text-xs text-stone-400">
-                &copy; 2026 SmaakPlek B.V. Alle rechten voorbehouden.
+                &copy; 2026 LeftOverly B.V. Alle rechten voorbehouden.
             </p>
         </div>
     </footer>
+
+    <!-- Barcode Scanner Modaal Venster -->
+    <div id="scanner-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/75 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-stone-100">
+            <div class="p-5 border-b border-stone-100 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                        <i class="fa-solid fa-barcode"></i>
+                    </div>
+                    <h3 class="font-bold text-stone-900">Product Barcode Scannen</h3>
+                </div>
+                <button onclick="closeScannerModal()" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-5">
+                <!-- Gesimuleerde Camera Viewfinder -->
+                <div class="relative h-48 bg-stone-900 rounded-2xl overflow-hidden flex flex-col items-center justify-center text-white p-4">
+                    <div class="absolute inset-4 border-2 border-brand-400/70 rounded-xl pointer-events-none flex items-center justify-center">
+                        <!-- Geanimeerde scanlijn -->
+                        <div class="w-full h-0.5 bg-brand-500 shadow-[0_0_8px_#f97316] animate-pulse"></div>
+                    </div>
+                    <i class="fa-solid fa-camera text-3xl text-stone-500 mb-2"></i>
+                    <p id="scanner-status-text" class="text-xs text-stone-300 text-center">Richt je camera op een barcode of kies hieronder een testproduct om te scannen</p>
+                </div>
+
+                <!-- Gesimuleerde Producten om te scannen -->
+                <div>
+                    <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2.5">Simuleer een barcode-scan:</p>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" onclick="simulateBarcodeScan('Gepelde Tomaten (400g)', 'Tomaten', 400, 'g')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871040012938</div>
+                            <div class="text-sm font-bold text-stone-800">Gepelde Tomaten (400g)</div>
+                        </button>
+                        <button type="button" onclick="simulateBarcodeScan('Verse Tagliatelle (125g)', 'Pasta', 125, 'g')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871890744120</div>
+                            <div class="text-sm font-bold text-stone-800">Tagliatelle (125g)</div>
+                        </button>
+                        <button type="button" onclick="simulateBarcodeScan('Kokosmelk Bio (400ml)', 'Kokosmelk', 400, 'ml')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871210088321</div>
+                            <div class="text-sm font-bold text-stone-800">Kokosmelk (400ml)</div>
+                        </button>
+                        <button type="button" onclick="simulateBarcodeScan('Paddenstoelen (150g)', 'Paddenstoelen', 150, 'g')" class="p-3 rounded-xl border border-stone-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                            <div class="text-xs font-mono text-stone-400 group-hover:text-brand-600">871062499104</div>
+                            <div class="text-sm font-bold text-stone-800">Paddenstoelen (150g)</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Recept Detail Modaal Venster -->
     <div id="recipe-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm">
@@ -422,12 +533,22 @@
 
             <!-- Modaal Inhoud -->
             <div class="p-6 sm:p-8 space-y-6">
-                <div>
-                    <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-stone-900"></h3>
-                    <div class="flex flex-wrap gap-4 mt-3 text-sm text-stone-600">
-                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> <span id="modal-time"></span></span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> <span id="modal-kcal"></span></span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-group text-brand-500"></i> 2 personen</span>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-stone-900"></h3>
+                        <div class="flex flex-wrap gap-4 mt-3 text-sm text-stone-600">
+                            <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> <span id="modal-time"></span></span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> <span id="modal-kcal"></span></span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-group text-brand-500"></i> <span id="modal-portions-text">2 personen</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Portie-aanpasser op basis van voorraad -->
+                    <div id="portion-adjust-banner" class="hidden bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-900 max-w-xs">
+                        <p id="portion-adjust-msg" class="font-medium mb-1.5"></p>
+                        <button type="button" id="scale-recipe-btn" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                            Pas porties aan
+                        </button>
                     </div>
                 </div>
 
@@ -435,9 +556,9 @@
                     <!-- Ingrediënten -->
                     <div>
                         <h4 class="font-bold text-stone-900 mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-carrot text-brand-500"></i> Ingrediënten
+                            <i class="fa-solid fa-carrot text-brand-500"></i> Ingrediënten & Voorraadcheck
                         </h4>
-                        <ul id="modal-ingredients" class="space-y-2 text-sm text-stone-700">
+                        <ul id="modal-ingredients" class="space-y-2.5 text-sm text-stone-700">
                             <!-- Dynamisch ingevuld -->
                         </ul>
                     </div>
@@ -472,7 +593,7 @@
 
     <!-- JavaScript Applicatie Logica -->
     <script>
-        // Voorbeeld receptendata
+        // Voorbeeld receptendata met gestructureerde hoeveelheden voor voorraadvergelijking
         const recipes = [
             {
                 id: 1,
@@ -480,15 +601,15 @@
                 category: "Snel",
                 tags: ["Snel", "Vegetarisch", "Comfort Food", "Pasta"],
                 time: "15 min",
-                kcal: "610 kcal",
+                kcal: 610,
+                baseServings: 2,
                 image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
                 ingredients: [
-                    "250g verse tagliatelle",
-                    "3 el groene basilicumpesto",
-                    "1 bol verse burrata",
-                    "Handje cherrytomaten",
-                    "2 el geroosterde pijnboompitten",
-                    "Verse basilicum & zwarte peper"
+                    { name: "verse tagliatelle (pasta)", keyword: "pasta", amount: 250, unit: "g" },
+                    { name: "groene basilicumpesto", keyword: "pesto", amount: 3, unit: "el" },
+                    { name: "verse burrata", keyword: "burrata", amount: 1, unit: "stuks" },
+                    { name: "cherrytomaten", keyword: "tomaat", amount: 150, unit: "g" },
+                    { name: "geroosterde pijnboompitten", keyword: "pijnboompitten", amount: 2, unit: "el" }
                 ],
                 steps: [
                     "Kook de tagliatelle volgens de aanwijzingen op de verpakking beetgaar.",
@@ -503,15 +624,15 @@
                 category: "Vegetarisch",
                 tags: ["Vegetarisch", "Snel"],
                 time: "20 min",
-                kcal: "420 kcal",
+                kcal: 420,
+                baseServings: 2,
                 image: "https://images.unsplash.com/photo-1590412227252-565eb10947d6?auto=format&fit=crop&w=800&q=80",
                 ingredients: [
-                    "1 blik gepelde tomaten (400g)",
-                    "4 vrije-uitloopeieren",
-                    "1 rode paprika, in blokjes",
-                    "1 ui & 2 tenen knoflook",
-                    "1 tl komijnpoeder & 1 tl paprikapoeder",
-                    "75g verkruimelde feta & verse koriander"
+                    { name: "gepelde tomaten", keyword: "tomaten", amount: 400, unit: "g" },
+                    { name: "vrije-uitloopeieren", keyword: "ei", amount: 4, unit: "stuks" },
+                    { name: "rode paprika", keyword: "paprika", amount: 1, unit: "stuks" },
+                    { name: "ui & knoflook", keyword: "ui", amount: 1, unit: "stuks" },
+                    { name: "verkruimelde feta", keyword: "feta", amount: 75, unit: "g" }
                 ],
                 steps: [
                     "Fruit de ui, knoflook en paprika 5 minuten in een ruime koekenpan.",
@@ -526,15 +647,15 @@
                 category: "Snel",
                 tags: ["Snel"],
                 time: "20 min",
-                kcal: "540 kcal",
+                kcal: 540,
+                baseServings: 2,
                 image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
                 ingredients: [
-                    "2 zalmfilets, in blokjes",
-                    "150g sushirijst",
-                    "3 el teriyakisaus",
-                    "1 avocado, in plakjes",
-                    "100g edamame boontjes",
-                    "Sesamzaadjes & bosui"
+                    { name: "zalmfilets", keyword: "zalm", amount: 2, unit: "stuks" },
+                    { name: "sushirijst", keyword: "rijst", amount: 150, unit: "g" },
+                    { name: "teriyakisaus", keyword: "teriyaki", amount: 3, unit: "el" },
+                    { name: "avocado", keyword: "avocado", amount: 1, unit: "stuks" },
+                    { name: "edamame boontjes", keyword: "edamame", amount: 100, unit: "g" }
                 ],
                 steps: [
                     "Kook de rijst gaar en laat kort uitstomen.",
@@ -549,15 +670,15 @@
                 category: "Comfort Food",
                 tags: ["Comfort Food"],
                 time: "2,5 uur",
-                kcal: "680 kcal",
+                kcal: 680,
+                baseServings: 2,
                 image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80",
                 ingredients: [
-                    "500g runderriblappen",
-                    "1 flesje donker abdijbier",
-                    "2 uien & 2 winterpenen",
-                    "2 laurierblaadjes & 3 kruidnagels",
-                    "1 snee volkorenbrood met mosterd",
-                    "Klontje roomboter"
+                    { name: "runderriblappen", keyword: "rund", amount: 500, unit: "g" },
+                    { name: "donker abdijbier", keyword: "bier", amount: 300, unit: "ml" },
+                    { name: "winterpenen", keyword: "wortel", amount: 2, unit: "stuks" },
+                    { name: "uien", keyword: "ui", amount: 2, unit: "stuks" },
+                    { name: "volkorenbrood met mosterd", keyword: "brood", amount: 1, unit: "stuks" }
                 ],
                 steps: [
                     "Braad het vlees rondom bruin in roomboter en haal uit de pan.",
@@ -572,15 +693,15 @@
                 category: "Vegetarisch",
                 tags: ["Vegetarisch", "Comfort Food"],
                 time: "30 min",
-                kcal: "460 kcal",
+                kcal: 460,
+                baseServings: 2,
                 image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=80",
                 ingredients: [
-                    "1 kleine bloemkool, in roosjes",
-                    "400ml kokosmelk",
-                    "2 el rode currypasta",
-                    "1 blik kikkererwten",
-                    "100g verse spinazie",
-                    "Naanbrood voor erbij"
+                    { name: "bloemkool", keyword: "bloemkool", amount: 1, unit: "stuks" },
+                    { name: "kokosmelk", keyword: "kokosmelk", amount: 400, unit: "ml" },
+                    { name: "rode currypasta", keyword: "curry", amount: 2, unit: "el" },
+                    { name: "kikkererwten", keyword: "kikkererwten", amount: 250, unit: "g" },
+                    { name: "verse spinazie", keyword: "spinazie", amount: 100, unit: "g" }
                 ],
                 steps: [
                     "Bak de currypasta 1 minuut aan in een wok en voeg de bloemkoolroosjes toe.",
@@ -595,15 +716,15 @@
                 category: "Comfort Food",
                 tags: ["Vegetarisch", "Comfort Food"],
                 time: "35 min",
-                kcal: "590 kcal",
+                kcal: 590,
+                baseServings: 2,
                 image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800&q=80",
                 ingredients: [
-                    "200g risottorijst (Arborio)",
-                    "250g gemengde bospaddenstoelen",
-                    "750ml warme groentebouillon",
-                    "50g geraspte Parmezaanse kaas",
-                    "1 el truffeltapenade",
-                    "1 sjalot & scheutje witte wijn"
+                    { name: "risottorijst", keyword: "rijst", amount: 200, unit: "g" },
+                    { name: "gemengde bospaddenstoelen", keyword: "paddenstoelen", amount: 250, unit: "g" },
+                    { name: "groentebouillon", keyword: "bouillon", amount: 750, unit: "ml" },
+                    { name: "geraspte Parmezaanse kaas", keyword: "kaas", amount: 50, unit: "g" },
+                    { name: "truffeltapenade", keyword: "truffel", amount: 1, unit: "el" }
                 ],
                 steps: [
                     "Bak de paddenstoelen goudbruin en zet apart. Fruit de sjalot en voeg de risottorijst toe.",
@@ -611,12 +732,83 @@
                     "Roer na 18 minuten de Parmezaanse kaas, truffeltapenade en paddenstoelen erdoor.",
                     "Laat 2 minuten rusten met de deksel op de pan voor je serveert."
                 ]
+            },
+            {
+                id: 7,
+                title: "Panlasagne met zalm en broccoli",
+                category: "Comfort Food",
+                tags: ["Comfort Food", "Snel", "Vis"],
+                time: "30 min",
+                kcal: 580,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1598511726623-d05999689a19?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "zalmfilet", keyword: "zalm", amount: 250, unit: "g" },
+                    { name: "broccoli", keyword: "broccoli", amount: 400, unit: "g" },
+                    { name: "verse lasagnebladen", keyword: "lasagne", amount: 150, unit: "g" },
+                    { name: "zuivelspread naturel", keyword: "zuivelspread", amount: 100, unit: "g" },
+                    { name: "visbouillon", keyword: "bouillon", amount: 300, unit: "ml" }
+                ],
+                steps: [
+                    "Snijd de broccoli in kleine roosjes en de zalm in blokjes.",
+                    "Breng de visbouillon aan de kook in een ruime hapjespan.",
+                    "Scheur de lasagnebladen in stukken en voeg samen met de broccoli toe aan de bouillon. Laat 10 minuten zachtjes koken.",
+                    "Roer de zuivelspread erdoor en leg de zalmblokjes erop. Laat nog 5 minuten afgedekt garen tot de zalm gaar is."
+                ]
+            },
+            {
+                id: 8,
+                title: "Eenpansrisotto met kip, champignons en 'nduja",
+                category: "Comfort Food",
+                tags: ["Comfort Food", "Snel"],
+                time: "35 min",
+                kcal: 620,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1623961990059-28356e226a11?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "risottorijst", keyword: "rijst", amount: 200, unit: "g" },
+                    { name: "kipdijfilet", keyword: "kip", amount: 300, unit: "g" },
+                    { name: "kastanjechampignons", keyword: "champignons", amount: 250, unit: "g" },
+                    { name: "'nduja pasta", keyword: "'nduja", amount: 1, unit: "el" },
+                    { name: "kippenbouillon", keyword: "bouillon", amount: 750, unit: "ml" }
+                ],
+                steps: [
+                    "Snijd de kipdijfilet in stukjes en de champignons in kwarten.",
+                    "Bak de kip in een beetje olie bruin. Voeg de champignons en 'nduja toe en bak 3 minuten mee.",
+                    "Voeg de risottorijst toe en bak glazig. Giet de helft van de bouillon erbij en laat zachtjes koken.",
+                    "Voeg in delen de rest van de bouillon toe tot de rijst na 20 minuten gaar en romig is."
+                ]
+            },
+            {
+                id: 9,
+                title: "Gezonde hutspot met pittige gehaktballetjes",
+                category: "Snel",
+                tags: ["Snel", "Hollands", "Gezond"],
+                time: "30 min",
+                kcal: 510,
+                baseServings: 2,
+                image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=800&q=80",
+                ingredients: [
+                    { name: "kruimige aardappelen", keyword: "aardappel", amount: 600, unit: "g" },
+                    { name: "hutspotgroenten", keyword: "wortel", amount: 500, unit: "g" },
+                    { name: "mager rundergehakt", keyword: "gehakt", amount: 250, unit: "g" },
+                    { name: "sambal oelek", keyword: "sambal", amount: 1, unit: "tl" },
+                    { name: "halfvolle melk", keyword: "melk", amount: 50, unit: "ml" }
+                ],
+                steps: [
+                    "Kook de aardappelen en hutspotgroenten samen in één pan in 20 minuten gaar.",
+                    "Kneed ondertussen het gehakt met de sambal en rol er kleine balletjes van.",
+                    "Bak de gehaktballetjes in een koekenpan in 12 minuten rondom goudbruin en gaar.",
+                    "Giet de aardappelen en groenten af, voeg de melk toe en stamp tot een smeuïge hutspot. Serveer met de pittige balletjes."
+                ]
             }
         ];
 
-        // State variabelen
+        // State variabelen: selectedIngredients bevat objecten { name, amount, unit }
         let currentCategory = "Alles";
-        let currentSearch = "";
+        let selectedIngredients = [];
+        let activeModalRecipeId = null;
+        let activeScaleFactor = 1;
 
         // DOM Elementen
         const recipesGrid = document.getElementById('recipes-grid');
@@ -624,29 +816,143 @@
         const searchStatus = document.getElementById('search-status');
         const searchStatusText = document.getElementById('search-status-text');
         const filterButtons = document.querySelectorAll('.filter-btn');
+        const ingredientsContainer = document.getElementById('selected-ingredients-container');
+        const ingredientsList = document.getElementById('selected-ingredients-list');
 
-        // Render receptenkaarten op basis van actieve filters
+        // Helper: controleer of een gebruikers-ingrediënt matcht met een recept-ingrediënt
+        function isIngredientMatch(userItem, recipeIng) {
+            const u = userItem.name.toLowerCase();
+            return recipeIng.name.toLowerCase().includes(u) || 
+                   recipeIng.keyword.toLowerCase().includes(u) ||
+                   u.includes(recipeIng.keyword.toLowerCase());
+        }
+
+        // Helper: bereken voorraadstatus voor een heel recept
+        function evaluateRecipeStock(recipe, scaleFactor = 1) {
+            let matchedIngredients = 0;
+            let allMatchedHaveEnough = true;
+            let suggestedFactor = 1;
+
+            recipe.ingredients.forEach(rIng => {
+                const userItem = selectedIngredients.find(u => isIngredientMatch(u, rIng));
+                if (userItem) {
+                    matchedIngredients++;
+                    const neededAmount = rIng.amount * scaleFactor;
+                    // Alleen vergelijken als gebruiker een aantal heeft opgegeven
+                    if (userItem.amount !== null && userItem.amount < neededAmount) {
+                        allMatchedHaveEnough = false;
+                        const ratio = userItem.amount / rIng.amount;
+                        if (ratio < suggestedFactor) {
+                            suggestedFactor = ratio;
+                        }
+                    }
+                }
+            });
+
+            return { matchedIngredients, allMatchedHaveEnough, suggestedFactor };
+        }
+
+        // Render de gekozen ingrediënten als tags in de hero-balk
+        function renderIngredientTags() {
+            if (selectedIngredients.length === 0) {
+                ingredientsContainer.classList.add('hidden');
+                return;
+            }
+
+            ingredientsContainer.classList.remove('hidden');
+            ingredientsList.innerHTML = selectedIngredients.map(ing => {
+                const amountLabel = ing.amount !== null ? `<span class="bg-brand-200/80 text-brand-950 px-1.5 py-0.5 rounded-md font-bold">${ing.amount}${ing.unit}</span>` : '';
+                return `
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-100 text-brand-900 text-xs font-semibold">
+                    ${amountLabel}
+                    <span>${ing.name}</span>
+                    <button type="button" onclick="removeIngredient('${ing.name.replace(/'/g, "\\'")}')" class="text-brand-600 hover:text-brand-950 focus:outline-none ml-0.5">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </span>
+            `}).join('');
+        }
+
+        // Voeg een ingrediënt met optionele hoeveelheid toe aan de lijst
+        function addIngredient(rawName, rawAmount = null, rawUnit = 'g') {
+            const name = rawName.trim();
+            if (!name) return;
+
+            const parsedAmount = (rawAmount !== null && rawAmount !== "" && !isNaN(parseFloat(rawAmount))) 
+                ? parseFloat(rawAmount) 
+                : null;
+
+            const formatted = name.charAt(0).toUpperCase() + name.slice(1);
+            const existingIndex = selectedIngredients.findIndex(item => item.name.toLowerCase() === formatted.toLowerCase());
+
+            if (existingIndex > -1) {
+                // Werk hoeveelheid bij als ingrediënt al bestaat
+                if (parsedAmount !== null) {
+                    selectedIngredients[existingIndex].amount = parsedAmount;
+                    selectedIngredients[existingIndex].unit = rawUnit;
+                    showToast(`Hoeveelheid van '${formatted}' bijgewerkt naar ${parsedAmount}${rawUnit}`);
+                } else {
+                    showToast(`'${formatted}' staat al in je voorraad!`);
+                }
+            } else {
+                selectedIngredients.push({
+                    name: formatted,
+                    amount: parsedAmount,
+                    unit: rawUnit
+                });
+                const qtyText = parsedAmount !== null ? ` (${parsedAmount}${rawUnit})` : '';
+                showToast(`'${formatted}${qtyText}' toegevoegd!`);
+            }
+            
+            renderIngredientTags();
+            renderRecipes();
+        }
+
+        // Verwijder een specifiek ingrediënt
+        function removeIngredient(name) {
+            selectedIngredients = selectedIngredients.filter(item => item.name !== name);
+            renderIngredientTags();
+            renderRecipes();
+        }
+
+        // Wis alle gekozen ingrediënten
+        function clearIngredients() {
+            selectedIngredients = [];
+            renderIngredientTags();
+            renderRecipes();
+        }
+
+        // Scroll soepel naar de recepten sectie
+        function scrollToRecipes() {
+            document.getElementById('ontdekken').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Render receptenkaarten op basis van actieve filters, ingrediënten én hoeveelheden
         function renderRecipes() {
             const filtered = recipes.filter(recipe => {
                 const matchesCategory = currentCategory === "Alles" || recipe.tags.includes(currentCategory);
-                const query = currentSearch.toLowerCase().trim();
-                const matchesSearch = !query || 
-                    recipe.title.toLowerCase().includes(query) ||
-                    recipe.tags.some(t => t.toLowerCase().includes(query)) ||
-                    recipe.ingredients.some(i => i.toLowerCase().includes(query));
                 
-                return matchesCategory && matchesSearch;
+                const matchesIngredients = selectedIngredients.length === 0 || selectedIngredients.some(userItem => {
+                    return recipe.title.toLowerCase().includes(userItem.name.toLowerCase()) ||
+                           recipe.tags.some(t => t.toLowerCase().includes(userItem.name.toLowerCase())) ||
+                           recipe.ingredients.some(rIng => isIngredientMatch(userItem, rIng));
+                });
+                
+                return matchesCategory && matchesIngredients;
             });
 
             // Update zoekstatus balk
-            if (currentSearch || currentCategory !== "Alles") {
+            if (selectedIngredients.length > 0 || currentCategory !== "Alles") {
                 searchStatus.classList.remove('hidden');
-                searchStatusText.textContent = `${filtered.length} recept(en) gevonden ${currentCategory !== 'Alles' ? `in '${currentCategory}'` : ''} ${currentSearch ? `voor "${currentSearch}"` : ''}`;
+                const ingText = selectedIngredients.length > 0 
+                    ? `met: ${selectedIngredients.map(i => i.amount ? `${i.amount}${i.unit} ${i.name}` : i.name).join(', ')}` 
+                    : '';
+                const catText = currentCategory !== 'Alles' ? `in '${currentCategory}'` : '';
+                searchStatusText.textContent = `${filtered.length} recept(en) gevonden ${catText} ${ingText}`;
             } else {
                 searchStatus.classList.add('hidden');
             }
 
-            // Toon lege staat of vul grid
             if (filtered.length === 0) {
                 recipesGrid.innerHTML = '';
                 emptyState.classList.remove('hidden');
@@ -654,7 +960,23 @@
             }
 
             emptyState.classList.add('hidden');
-            recipesGrid.innerHTML = filtered.map(recipe => `
+            recipesGrid.innerHTML = filtered.map(recipe => {
+                const stockEval = evaluateRecipeStock(recipe, 1);
+
+                let matchBadge = '';
+                if (selectedIngredients.length > 0 && stockEval.matchedIngredients > 0) {
+                    if (stockEval.allMatchedHaveEnough) {
+                        matchBadge = `<span class="absolute top-3 right-3 bg-sage-700 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                             <i class="fa-solid fa-check mr-1"></i>Voldoende in huis (${stockEval.matchedIngredients})
+                           </span>`;
+                    } else {
+                        matchBadge = `<span class="absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                             <i class="fa-solid fa-scale-balanced mr-1"></i>Iets minder in huis
+                           </span>`;
+                    }
+                }
+
+                return `
                 <article onclick="openRecipeModal(${recipe.id})" class="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
                     <div class="relative h-56 overflow-hidden bg-stone-200">
                         <img 
@@ -666,13 +988,14 @@
                         <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-stone-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                             ${recipe.category}
                         </span>
+                        ${matchBadge}
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
                             <div class="flex items-center gap-3 text-xs text-stone-500 mb-2">
                                 <span><i class="fa-regular fa-clock text-brand-500 mr-1"></i>${recipe.time}</span>
                                 <span>•</span>
-                                <span><i class="fa-solid fa-fire text-brand-500 mr-1"></i>${recipe.kcal}</span>
+                                <span><i class="fa-solid fa-fire text-brand-500 mr-1"></i>${recipe.kcal} kcal</span>
                             </div>
                             <h3 class="font-serif text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors">
                                 ${recipe.title}
@@ -684,18 +1007,16 @@
                         </div>
                     </div>
                 </article>
-            `).join('');
+            `}).join('');
         }
 
         // Filter knoppen afhandelen
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Reset active styling
                 filterButtons.forEach(b => {
                     b.classList.remove('bg-stone-900', 'text-white');
                     b.classList.add('bg-stone-100', 'text-stone-700');
                 });
-                // Zet nieuwe active styling
                 btn.classList.remove('bg-stone-100', 'text-stone-700');
                 btn.classList.add('bg-stone-900', 'text-white');
 
@@ -704,27 +1025,25 @@
             });
         });
 
-        // Hero zoekformulier afhandelen
-        document.getElementById('hero-search-form').addEventListener('submit', (e) => {
+        // Formulier voor toevoegen van ingrediënten + hoeveelheid afhandelen
+        document.getElementById('ingredient-add-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            currentSearch = document.getElementById('hero-search-input').value;
-            renderRecipes();
-            document.getElementById('ontdekken').scrollIntoView({ behavior: 'smooth' });
+            const input = document.getElementById('ingredient-input');
+            const amountInput = document.getElementById('ingredient-amount');
+            const unitSelect = document.getElementById('ingredient-unit');
+
+            addIngredient(input.value, amountInput.value, unitSelect.value);
+            input.value = "";
+            amountInput.value = "";
         });
 
-        // Snelle zoektags onder de zoekbalk
-        function quickSearch(term) {
-            document.getElementById('hero-search-input').value = term;
-            currentSearch = term;
-            renderRecipes();
-            document.getElementById('ontdekken').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Alle filters resetten
+        // Alle filters en ingrediënten resetten
         function resetFilters() {
             currentCategory = "Alles";
-            currentSearch = "";
-            document.getElementById('hero-search-input').value = "";
+            selectedIngredients = [];
+            document.getElementById('ingredient-input').value = "";
+            document.getElementById('ingredient-amount').value = "";
+            renderIngredientTags();
             filterButtons.forEach(b => {
                 b.classList.remove('bg-stone-900', 'text-white');
                 b.classList.add('bg-stone-100', 'text-stone-700');
@@ -736,20 +1055,94 @@
             renderRecipes();
         }
 
-        // Modaal venster openen voor receptdetails
-        function openRecipeModal(id) {
+        // Barcode Scanner Modaal functies
+        function openScannerModal() {
+            const modal = document.getElementById('scanner-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeScannerModal() {
+            const modal = document.getElementById('scanner-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function simulateBarcodeScan(productName, ingredientKeyword, amount, unit) {
+            const statusText = document.getElementById('scanner-status-text');
+            statusText.innerHTML = `<span class="text-brand-400 font-bold"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Scannen: ${productName}...</span>`;
+            
+            setTimeout(() => {
+                closeScannerModal();
+                statusText.textContent = "Richt je camera op een barcode of kies hieronder een testproduct om te scannen";
+                addIngredient(ingredientKeyword, amount, unit);
+            }, 500);
+        }
+
+        document.getElementById('scanner-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'scanner-modal') closeScannerModal();
+        });
+
+        // Modaal venster openen voor receptdetails (inclusief voorraadberekening & portieschaling)
+        function openRecipeModal(id, scaleFactor = 1) {
             const recipe = recipes.find(r => r.id === id);
             if (!recipe) return;
+
+            activeModalRecipeId = id;
+            activeScaleFactor = scaleFactor;
+
+            const currentServings = Math.max(0.5, Math.round(recipe.baseServings * scaleFactor * 10) / 10);
 
             document.getElementById('modal-img').src = recipe.image;
             document.getElementById('modal-category').textContent = recipe.category;
             document.getElementById('modal-title').textContent = recipe.title;
             document.getElementById('modal-time').textContent = recipe.time;
-            document.getElementById('modal-kcal').textContent = recipe.kcal;
+            document.getElementById('modal-kcal').textContent = `${Math.round(recipe.kcal * scaleFactor)} kcal totaal`;
+            document.getElementById('modal-portions-text').textContent = `${currentServings} ${currentServings === 1 ? 'persoon' : 'personen'}`;
 
-            document.getElementById('modal-ingredients').innerHTML = recipe.ingredients
-                .map(ing => `<li class="flex items-start gap-2"><span class="text-brand-500 mt-1">•</span><span>${ing}</span></li>`)
-                .join('');
+            // Controleer of gebruiker minder heeft dan nodig voor de huidige portiegrootte
+            const stockEval = evaluateRecipeStock(recipe, scaleFactor);
+            const adjustBanner = document.getElementById('portion-adjust-banner');
+            const adjustMsg = document.getElementById('portion-adjust-msg');
+            const scaleBtn = document.getElementById('scale-recipe-btn');
+
+            if (!stockEval.allMatchedHaveEnough && stockEval.suggestedFactor < scaleFactor) {
+                const newServings = Math.max(0.5, Math.round(recipe.baseServings * stockEval.suggestedFactor * 10) / 10);
+                adjustBanner.classList.remove('hidden');
+                adjustMsg.textContent = `Je hebt net iets minder in huis voor ${currentServings} pers. Schaal het recept terug naar ${newServings} pers.`;
+                scaleBtn.onclick = () => openRecipeModal(id, stockEval.suggestedFactor);
+            } else {
+                adjustBanner.classList.add('hidden');
+            }
+
+            // Render ingrediënten met slimme voorraadvergelijking
+            document.getElementById('modal-ingredients').innerHTML = recipe.ingredients.map(rIng => {
+                const scaledAmount = Math.round(rIng.amount * scaleFactor * 10) / 10;
+                const userItem = selectedIngredients.find(u => isIngredientMatch(u, rIng));
+
+                let statusHtml = '';
+                if (userItem) {
+                    if (userItem.amount === null) {
+                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-sage-700 bg-sage-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-check mr-1"></i>In huis</span>`;
+                    } else if (userItem.amount >= scaledAmount) {
+                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-sage-700 bg-sage-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-check mr-1"></i>Genoeg (${userItem.amount}${userItem.unit} in huis)</span>`;
+                    } else {
+                        const missing = Math.round((scaledAmount - userItem.amount) * 10) / 10;
+                        statusHtml = `<span class="inline-block mt-1 text-[11px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Je hebt ${userItem.amount}${userItem.unit} (mis nog ${missing}${rIng.unit})</span>`;
+                    }
+                }
+
+                return `
+                <li class="flex flex-col bg-stone-50 p-2.5 rounded-xl border border-stone-100">
+                    <div class="flex items-start gap-2">
+                        <span class="text-brand-500 font-bold">•</span>
+                        <span><strong class="text-stone-900">${scaledAmount} ${rIng.unit}</strong> ${rIng.name}</span>
+                    </div>
+                    ${statusHtml ? `<div class="pl-4">${statusHtml}</div>` : ''}
+                </li>`;
+            }).join('');
 
             document.getElementById('modal-steps').innerHTML = recipe.steps
                 .map(step => `<li class="leading-relaxed">${step}</li>`)
