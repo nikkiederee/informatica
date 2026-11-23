@@ -66,7 +66,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-2.5 group">
+                <a href="#" onclick="showView('landing'); return false;" class="flex items-center gap-2.5 group">
                     <div class="w-10 h-10 bg-brand-500 text-cream-50 rounded-2xl flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-utensils text-lg"></i>
                     </div>
@@ -75,7 +75,7 @@
 
                 <!-- Desktop Navigatie -->
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#" onclick="showAppToast()" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Alle recepten</a>
+                    <a href="#" onclick="showAllRecipes(event)" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Alle recepten</a>
                     <a href="#" onclick="showAppToast()" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Recepten met restjes</a>
                     <a href="#ons-idee" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">Ons idee</a>
                     <a href="#functies" class="text-sm font-medium text-earth-700 hover:text-brand-600 transition-colors">De app</a>
@@ -102,7 +102,7 @@
 
         <!-- Mobiel Dropdown Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-cream-50 border-b border-cream-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
-            <a href="#" onclick="showAppToast()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Alle recepten</a>
+            <a href="#" onclick="showAllRecipes(event)" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Alle recepten</a>
             <a href="#" onclick="showAppToast()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Recepten met restjes</a>
             <a href="#ons-idee" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">Ons idee</a>
             <a href="#functies" class="block px-3 py-2.5 rounded-xl text-base font-medium text-earth-800 hover:bg-sage-100 hover:text-brand-600">De app</a>
@@ -114,324 +114,118 @@
         </div>
     </header>
 
-    <!-- Hero Sectie -->
-    <section id="hero" class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-cream-50 to-sage-50/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Linker Kolom: Tekst & Zoekbalk -->
-                <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sage-100 text-brand-700 border border-sage-200 text-xs sm:text-sm font-semibold">
+    <!-- View: Landingspagina -->
+    <div id="view-landing">
+        <!-- Hero Sectie -->
+        <section id="hero" class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-cream-50 to-sage-50/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sage-100 text-brand-700 border border-sage-200 text-xs sm:text-sm font-semibold mx-auto">
                         <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
                         Meer dan 15.000 geteste recepten
                     </div>
-                    
-                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-earth-900 leading-tight">
-                        Kook iets <span class="text-brand-500 italic">heerlijks</span> met wat je nog hebt liggen.
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-earth-900 leading-tight">
+                        Kook Slim met Wat Je <span class="text-brand-500 italic">Al in Huis</span> Hebt
                     </h1>
-                    
-                    <p class="text-base sm:text-lg text-earth-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        Voeg de ingrediënten uit je koelkast of voorraadkast toe, of scan direct de barcode van je producten. LeftOverly tovert jouw restjes direct om tot verrassende recepten.
+                    <p class="text-lg text-earth-700 max-w-2xl mx-auto">
+                        Voorkom voedselverspilling en ontdek verrassende recepten met de restjes in jouw koelkast. Voeg je ingrediënten toe en zie direct wat je kunt maken!
                     </p>
 
-                    <!-- Interactieve Ingrediënten & Barcode Balk -->
-                    <div class="max-w-xl mx-auto lg:mx-0">
-                        <div class="bg-white p-3 rounded-2xl shadow-lg shadow-earth-900/5 border border-cream-200 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/10 transition-all">
-                            <form id="ingredient-add-form" class="flex flex-wrap sm:flex-nowrap items-center gap-2">
-                                <div class="flex items-center flex-1 min-w-[160px]">
-                                    <i class="fa-solid fa-basket-shopping text-brand-500 ml-2 sm:ml-3 text-lg"></i>
-                                    <input 
-                                        type="text" 
-                                        id="ingredient-input"
-                                        placeholder="Ingrediënt (bijv. pasta)..." 
-                                        class="w-full px-2 py-2 text-sm sm:text-base text-earth-900 placeholder-earth-500/60 focus:outline-none bg-transparent"
-                                    >
-                                </div>
-
-                                <!-- Hoeveelheid & Eenheid -->
-                                <div class="flex items-center bg-cream-100 border border-cream-200 rounded-xl px-2 py-1 shrink-0">
-                                    <input 
-                                        type="number" 
-                                        id="ingredient-amount"
-                                        min="1"
-                                        step="any"
-                                        placeholder="Aantal" 
-                                        class="w-16 text-sm text-earth-900 placeholder-earth-500/60 focus:outline-none bg-transparent text-right pr-1"
-                                    >
-                                    <select id="ingredient-unit" class="text-xs font-semibold text-earth-700 bg-transparent focus:outline-none cursor-pointer pr-1">
-                                        <option value="g">g</option>
-                                        <option value="stuks">stuks</option>
-                                        <option value="ml">ml</option>
-                                        <option value="el">el</option>
-                                        <option value="blik">blik</option>
-                                    </select>
-                                </div>
-
-                                <div class="flex items-center gap-1.5 w-full sm:w-auto justify-end">
-                                    <!-- Barcode Scan Knop -->
-                                    <button 
-                                        type="button" 
-                                        onclick="openScannerModal()" 
-                                        title="Scan barcode van een product"
-                                        class="p-2.5 sm:px-3 sm:py-2.5 rounded-xl bg-cream-100 hover:bg-cream-200 text-earth-800 font-medium text-sm flex items-center gap-1.5 transition-colors shrink-0"
-                                    >
-                                        <i class="fa-solid fa-barcode text-lg text-earth-800"></i>
-                                        <span class="sm:hidden">Scan</span>
-                                    </button>
-                                    <!-- Toevoegen Knop -->
-                                    <button 
-                                        type="submit" 
-                                        class="flex-1 sm:flex-initial bg-brand-500 hover:bg-brand-600 text-cream-50 font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0 shadow-sm flex items-center justify-center gap-1.5"
-                                    >
-                                        <i class="fa-solid fa-plus text-sm"></i>
-                                        <span>Voeg toe</span>
-                                    </button>
-                                </div>
-                            </form>
-
-                            <!-- Lijst met toegevoegde ingrediënten (Tags) -->
-                            <div id="selected-ingredients-container" class="hidden pt-3 mt-3 border-t border-cream-200">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs font-semibold text-earth-700 uppercase tracking-wider">Jouw voorraad:</span>
-                                    <button type="button" onclick="clearIngredients()" class="text-xs text-earth-500 hover:text-brand-600 transition-colors">Wis alles</button>
-                                </div>
-                                <div id="selected-ingredients-list" class="flex flex-wrap gap-2">
-                                    <!-- Dynamische ingredient pills -->
-                                </div>
-                                <div class="mt-3 pt-3 border-t border-cream-100 flex justify-between items-center">
-                                    <span id="recipe-match-count" class="text-xs font-bold text-brand-700"></span>
-                                    <a href="#download" class="text-xs font-bold text-cream-50 bg-brand-500 hover:bg-brand-600 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
-                                        Open de app <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
+                    <!-- Ingrediënten Invulbalk -->
+                    <div class="bg-white p-2.5 sm:p-3 rounded-2xl sm:rounded-full shadow-lg shadow-brand-500/10 border border-cream-200 max-w-3xl mx-auto relative z-10">
+                        <form id="ingredient-add-form" class="flex flex-col sm:flex-row items-center gap-2">
+                            <div class="flex-1 w-full sm:w-auto relative flex items-center bg-cream-50 rounded-xl sm:rounded-full px-4 py-2 border border-transparent focus-within:border-brand-500 focus-within:bg-white transition-colors">
+                                <i class="fa-solid fa-carrot text-brand-500 mr-3"></i>
+                                <input type="text" id="ingredient-input" placeholder="Bv. tomaten, kip, pasta..." required class="w-full bg-transparent border-none outline-none text-earth-900 placeholder-earth-500 text-sm py-1.5">
                             </div>
-                        </div>
-
-                        <!-- Snelle suggesties -->
-                        <div class="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-earth-700">
-                            <span>Snel toevoegen:</span>
-                            <button type="button" onclick="addIngredient('Pasta', 250, 'g')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 250g Pasta</button>
-                            <button type="button" onclick="addIngredient('Feta', 50, 'g')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 50g Feta</button>
-                            <button type="button" onclick="addIngredient('Zalm', 2, 'stuks')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 2 Zalm</button>
-                            <button type="button" onclick="addIngredient('Bloemkool', 1, 'stuks')" class="px-2.5 py-1 rounded-lg bg-cream-100 border border-cream-200 hover:border-brand-500 hover:bg-sage-50 hover:text-brand-700 transition-colors">+ 1 Bloemkool</button>
-                        </div>
-                    </div>
-
-                    <!-- App Store Badges / Statistieken -->
-                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10 border-t border-cream-200">
-                        <div>
-                            <div class="flex items-center gap-1 text-earth-500 text-sm">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <span class="text-earth-900 font-bold ml-1">4.9</span>
+                            
+                            <div class="flex w-full sm:w-auto gap-2">
+                                <input type="number" id="ingredient-amount" placeholder="Aantal" min="0.1" step="0.1" class="w-20 bg-cream-50 border border-transparent focus:border-brand-500 rounded-xl sm:rounded-full px-3 py-2 outline-none text-earth-900 text-sm">
+                                <select id="ingredient-unit" class="bg-cream-50 border border-transparent focus:border-brand-500 rounded-xl sm:rounded-full px-3 py-2 outline-none text-earth-900 text-sm font-medium">
+                                    <option value="g">g</option>
+                                    <option value="ml">ml</option>
+                                    <option value="stuks">stuks</option>
+                                    <option value="el">el</option>
+                                    <option value="tl">tl</option>
+                                </select>
                             </div>
-                            <p class="text-xs text-earth-700 mt-0.5">12.000+ App Store reviews</p>
+
+                            <button type="submit" class="w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-cream-50 font-semibold px-6 py-3 sm:py-2 rounded-xl sm:rounded-full transition-colors flex items-center justify-center gap-2 shrink-0">
+                                <i class="fa-solid fa-plus"></i> Voeg toe
+                            </button>
+                            <button type="button" onclick="openScannerModal()" class="w-full sm:w-auto bg-earth-800 hover:bg-earth-900 text-cream-50 font-semibold px-5 py-3 sm:py-2 rounded-xl sm:rounded-full transition-colors flex items-center justify-center gap-2 shrink-0">
+                                <i class="fa-solid fa-barcode"></i> Scan
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Gekozen Ingrediënten -->
+                    <div id="selected-ingredients-container" class="hidden text-left max-w-3xl mx-auto pt-2">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-earth-700 uppercase tracking-wider">Jouw koelkast:</span>
+                            <button onclick="clearIngredients()" class="text-xs text-brand-600 hover:text-brand-800 font-medium">Wis alles</button>
                         </div>
-                        <div class="h-8 w-px bg-cream-200 hidden sm:block"></div>
-                        <div>
-                            <p class="text-lg font-bold text-earth-900">250.000+</p>
-                            <p class="text-xs text-earth-700">Actieve thuiskoks in NL & BE</p>
+                        <div id="selected-ingredients-list" class="flex flex-wrap gap-2">
+                            <!-- Ingevuld via JS -->
                         </div>
-                    </div>
-                </div>
-
-                <!-- Rechter Kolom: Visuele Showcase -->
-                <div class="lg:col-span-6 relative">
-                    <!-- Decoratieve achtergrond vorm -->
-                    <div class="absolute -inset-4 bg-gradient-to-tr from-sage-200/50 via-brand-100/50 to-cream-200/60 rounded-[2.5rem] blur-2xl -z-10"></div>
-                    
-                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-earth-900/10 border-4 border-cream-50 aspect-[4/3] bg-cream-200">
-                        <img 
-                            src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=80" 
-                            onerror="this.src='https://placehold.co/800x600/606c38/fdfcf8?text=Heerlijke+Verse+Gerechten'"
-                            alt="Verse kleurrijke maaltijd" 
-                            class="w-full h-full object-cover"
-                        >
-                        <!-- Zwevende Recept Kaart Overlay -->
-                        <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto bg-cream-50/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-cream-200 max-w-xs">
-                            <p class="text-earth-700 text-sm italic mb-4">"Sinds ik LeftOverly gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-sage-100 text-sage-700 flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-clock text-xl"></i>
-                                </div>
-                                <div>
-                                    <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">Recept van de dag</span>
-                                    <h3 class="font-bold text-earth-900 text-sm">Geroosterde Pompoen Risotto</h3>
-                                    <p class="text-xs text-earth-700">25 min • 480 kcal • Vegetarisch</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Ons Idee Sectie -->
-    <section id="ons-idee" class="py-16 sm:py-24 bg-cream-100/70 border-y border-cream-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Onze Missie</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 leading-tight">
-                        Van overgebleven restjes toch nog een lekker recept maken.
-                    </h2>
-                    <p class="text-base sm:text-lg text-earth-700 leading-relaxed">
-                        Waarom gooien we zoveel goed eten weg? Bij LeftOverly geloven we dat in elke koelkast een heerlijke maaltijd schuilt, zelfs met die paar verdwaalde restjes groenten of dat halve pakje pasta.
-                    </p>
-                    <p class="text-base sm:text-lg text-earth-700 leading-relaxed">
-                        Door creatief te koken met wat je al in huis hebt, bespaar je niet alleen geld op je boodschappen, maar help je ook actief mee om voedselverspilling tegen te gaan. Goed voor je portemonnee, én goed voor de planeet!
-                    </p>
-                    <div class="pt-4">
-                        <a href="#functies" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-800 transition-colors">
-                            Ontdek hoe de app werkt <i class="fa-solid fa-arrow-down"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="relative rounded-3xl overflow-hidden shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a872f?auto=format&fit=crop&w=800&q=80" alt="Koken met restjes" class="w-full h-full object-cover aspect-square md:aspect-[4/3]">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- App Functies Sectie -->
-    <section id="functies" class="py-16 sm:py-24 bg-cream-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-brand-600 font-semibold text-sm tracking-wide uppercase">Slimmer koken</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 mt-2">Alles wat je nodig hebt in één keuken-app</h2>
-                <p class="text-earth-700 mt-4">Geen gedoe meer met losse notities, openvallende kookboeken of voedselverspilling.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-cream-200 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 rounded-2xl bg-sage-100 text-brand-600 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-basket-shopping"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-earth-900 mb-3">Slimme Boodschappenlijst</h3>
-                    <p class="text-earth-700 text-sm leading-relaxed">
-                        Voeg ingrediënten uit meerdere recepten met één tik samen. De app sorteert alles automatisch per gangpad in de supermarkt.
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-cream-200 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-refrigerator"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-earth-900 mb-3">Koelkast-Scanner</h3>
-                    <p class="text-earth-700 text-sm leading-relaxed">
-                        Heb je nog courgette, feta en kip over? Vul je restjes in en ontdek direct welke heerlijke gerechten je ermee kunt maken.
-                    </p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-cream-200 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 rounded-2xl bg-cream-200 text-earth-700 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-fire-burner"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-earth-900 mb-3">Handsfree Kookmodus</h3>
-                    <p class="text-earth-700 text-sm leading-relaxed">
-                        Grote letters, ingebouwde kookwekkers per stap en je scherm blijft aan tijdens het koken. Geen vieze vingers meer op je telefoon!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews / Ervaringen -->
-    <section id="reviews" class="py-16 sm:py-24 bg-sage-50/70 border-t border-cream-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900 text-center mb-12">Wat thuiskoks zeggen</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200 shadow-sm">
-                    <div class="flex text-brand-500 text-sm mb-3">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-earth-800 text-sm italic mb-4">"Sinds ik LeftOverly gebruik, gooien we bijna geen groenten meer weg. De boodschappenlijst functie bespaart me elke week minstens een half uur!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-sage-200 text-brand-800 font-bold flex items-center justify-center text-xs">SL</div>
-                        <div>
-                            <p class="text-sm font-bold text-earth-900">Sanne de Vries</p>
-                            <p class="text-xs text-earth-600">Utrecht</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200 shadow-sm">
-                    <div class="flex text-brand-500 text-sm mb-3">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-earth-800 text-sm italic mb-4">"Eindelijk een recepten-app zonder eindeloze levensverhalen boven elk recept. Gewoon direct duidelijke ingrediënten en heldere stappen."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-brand-200 text-brand-900 font-bold flex items-center justify-center text-xs">MK</div>
-                        <div>
-                            <p class="text-sm font-bold text-earth-900">Mark Koster</p>
-                            <p class="text-xs text-earth-600">Rotterdam</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200 shadow-sm">
-                    <div class="flex text-brand-500 text-sm mb-3">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-earth-800 text-sm italic mb-4">"De portie-aanpasser werkt geweldig. Of ik nu alleen eet of voor 6 vrienden kook, alle hoeveelheden worden direct omgerekend."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-cream-200 text-earth-800 font-bold flex items-center justify-center text-xs">EB</div>
-                        <div>
-                            <p class="text-sm font-bold text-earth-900">Emma Bakker</p>
-                            <p class="text-xs text-earth-600">Antwerpen</p>
+                        <div class="mt-4 pt-4 border-t border-cream-200">
+                            <p id="recipe-match-count" class="text-brand-700 font-semibold text-sm mb-3">
+                                <i class="fa-solid fa-utensils mr-1"></i> Voeg ingrediënten toe om te zoeken!
+                            </p>
+                            <button onclick="showAllRecipes(event)" class="bg-sage-100 hover:bg-sage-200 text-brand-800 text-sm font-semibold px-5 py-2 rounded-full transition-colors">
+                                Bekijk recepten <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Download Call-To-Action Banner -->
-    <section id="download" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-cream-50">
-        <div class="max-w-5xl mx-auto bg-brand-700 rounded-[2.5rem] p-8 sm:p-14 text-center text-cream-50 relative overflow-hidden shadow-2xl shadow-brand-900/15">
-            <!-- Subtiele gloed -->
-            <div class="absolute top-0 right-0 w-72 h-72 bg-sage-500/30 rounded-full blur-3xl -mr-20 -mt-20"></div>
-            <div class="absolute bottom-0 left-0 w-72 h-72 bg-earth-800/40 rounded-full blur-3xl -ml-20 -mb-20"></div>
-
-            <div class="relative z-10 max-w-2xl mx-auto space-y-6">
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight text-cream-50">
-                    Klaar om vanavond iets lekkers op tafel te zetten?
-                </h2>
-                <p class="text-sage-100 text-base sm:text-lg">
-                    Download LeftOverly gratis voor iOS en Android en ontvang direct toegang tot duizenden anti-verspillingsrecepten.
+        <!-- Ons Idee Sectie -->
+        <section id="ons-idee" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-earth-900 mb-6">Ons Idee</h2>
+                <p class="text-earth-700 max-w-3xl mx-auto text-lg leading-relaxed mb-12">
+                    Bij LeftOverly geloven we dat er in elk restje een heerlijk gerecht schuilt. Jaarlijks gooien we kilo's goed voedsel weg, simpelweg omdat we niet weten wat we ermee moeten maken. Door in te vullen wat je nog hebt liggen, bedenkt LeftOverly het perfecte recept voor je. Zo bespaar je geld, ontdek je nieuwe smaken én help je mee tegen voedselverspilling.
                 </p>
                 
-                <!-- App Store Knoppen -->
-                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button onclick="showToast('Doorsturen naar de Apple App Store...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-cream-50 text-earth-900 hover:bg-cream-100 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg">
-                        <i class="fa-brands fa-apple text-2xl"></i>
-                        <div class="text-left">
-                            <div class="text-[10px] uppercase tracking-wider text-earth-600 leading-none">Download in de</div>
-                            <div class="text-base font-bold leading-tight">App Store</div>
-                        </div>
-                    </button>
-
-                    <button onclick="showToast('Doorsturen naar Google Play...')" class="w-full sm:w-auto flex items-center justify-center gap-3 bg-earth-800 text-cream-50 hover:bg-earth-900 px-6 py-3.5 rounded-2xl font-semibold transition-transform active:scale-95 shadow-lg border border-earth-700">
-                        <i class="fa-brands fa-google-play text-xl"></i>
-                        <div class="text-left">
-                            <div class="text-[10px] uppercase tracking-wider text-cream-200 leading-none">Ontdek het op</div>
-                            <div class="text-base font-bold leading-tight">Google Play</div>
-                        </div>
-                    </button>
+                <div class="grid sm:grid-cols-3 gap-8">
+                    <div class="p-6 bg-cream-50 rounded-3xl border border-cream-200">
+                        <div class="w-12 h-12 bg-sage-200 text-brand-700 rounded-2xl flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-leaf"></i></div>
+                        <h3 class="font-bold text-earth-900 mb-2">Minder Verspilling</h3>
+                        <p class="text-sm text-earth-600">Red voedsel van de prullenbak door te koken met wat je al hebt.</p>
+                    </div>
+                    <div class="p-6 bg-cream-50 rounded-3xl border border-cream-200">
+                        <div class="w-12 h-12 bg-sage-200 text-brand-700 rounded-2xl flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-piggy-bank"></i></div>
+                        <h3 class="font-bold text-earth-900 mb-2">Geld Besparen</h3>
+                        <p class="text-sm text-earth-600">Voorkom onnodige tripjes naar de supermarkt en bespaar flink op je boodschappen.</p>
+                    </div>
+                    <div class="p-6 bg-cream-50 rounded-3xl border border-cream-200">
+                        <div class="w-12 h-12 bg-sage-200 text-brand-700 rounded-2xl flex items-center justify-center text-xl mx-auto mb-4"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h3 class="font-bold text-earth-900 mb-2">Nieuwe Inspiratie</h3>
+                        <p class="text-sm text-earth-600">Ontdek verrassende recepten en smaakcombinaties die je anders nooit had geprobeerd.</p>
+                    </div>
                 </div>
             </div>
+        </section>
+    </div>
+
+    <!-- View: Recepten Pagina (Nieuwe 'Pagina') -->
+    <div id="view-recipes" class="hidden min-h-screen pt-12 pb-24 bg-cream-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <button onclick="showView('landing')" class="text-earth-600 hover:text-brand-600 font-medium text-sm flex items-center gap-2 mb-6 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i> Terug naar home
+                </button>
+                <h1 class="font-serif text-3xl sm:text-4xl font-bold text-earth-900">Alle Recepten</h1>
+                <p class="text-earth-700 mt-3 max-w-2xl text-lg">Blader door onze volledige collectie van anti-verspillingsrecepten. Ontdek nieuwe smaken met de ingrediënten die je al in huis hebt.</p>
+            </div>
+            
+            <div id="recipe-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Recepten worden hier dynamisch ingeladen door JavaScript -->
+            </div>
         </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-cream-100 border-t border-cream-200 py-12">
@@ -1200,16 +994,19 @@
         }
 
         // Formulier voor toevoegen van ingrediënten + hoeveelheid afhandelen
-        document.getElementById('ingredient-add-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const input = document.getElementById('ingredient-input');
-            const amountInput = document.getElementById('ingredient-amount');
-            const unitSelect = document.getElementById('ingredient-unit');
+        const ingredientForm = document.getElementById('ingredient-add-form');
+        if (ingredientForm) {
+            ingredientForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = document.getElementById('ingredient-input');
+                const amountInput = document.getElementById('ingredient-amount');
+                const unitSelect = document.getElementById('ingredient-unit');
 
-            addIngredient(input.value, amountInput.value, unitSelect.value);
-            input.value = "";
-            amountInput.value = "";
-        });
+                addIngredient(input.value, amountInput.value, unitSelect.value);
+                input.value = "";
+                amountInput.value = "";
+            });
+        }
 
         // Barcode Scanner Modaal functies
         function openScannerModal() {
@@ -1228,18 +1025,25 @@
 
         function simulateBarcodeScan(productName, ingredientKeyword, amount, unit) {
             const statusText = document.getElementById('scanner-status-text');
-            statusText.innerHTML = `<span class="text-brand-400 font-bold"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Scannen: ${productName}...</span>`;
+            if (statusText) {
+                statusText.innerHTML = `<span class="text-brand-400 font-bold"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Scannen: ${productName}...</span>`;
+            }
             
             setTimeout(() => {
                 closeScannerModal();
-                statusText.textContent = "Richt je camera op een barcode of kies hieronder een testproduct om te scannen";
+                if (statusText) {
+                    statusText.textContent = "Richt je camera op een barcode of kies hieronder een testproduct om te scannen";
+                }
                 addIngredient(ingredientKeyword, amount, unit);
             }, 500);
         }
 
-        document.getElementById('scanner-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'scanner-modal') closeScannerModal();
-        });
+        const scannerModal = document.getElementById('scanner-modal');
+        if (scannerModal) {
+            scannerModal.addEventListener('click', (e) => {
+                if (e.target.id === 'scanner-modal') closeScannerModal();
+            });
+        }
 
         // Modaal venster openen voor receptdetails (inclusief voorraadberekening & portieschaling)
         function openRecipeModal(id, scaleFactor = 1) {
@@ -1319,15 +1123,21 @@
         }
 
         // Sluit modaal bij klik buiten het venster
-        document.getElementById('recipe-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'recipe-modal') closeModal();
-        });
+        const recipeModal = document.getElementById('recipe-modal');
+        if (recipeModal) {
+            recipeModal.addEventListener('click', (e) => {
+                if (e.target.id === 'recipe-modal') closeModal();
+            });
+        }
 
         // Mobiel menu toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                if (menu) menu.classList.toggle('hidden');
+            });
+        }
 
         // Toast notificatie tonen
         let toastTimeout;
@@ -1344,6 +1154,58 @@
 
         function showAppToast() {
             showToast("Download de LeftOverly app om alle recepten te bekijken!");
+        }
+
+        // Functie om te wisselen tussen de Landingspagina en de Receptenpagina
+        function showView(viewName) {
+            const landing = document.getElementById('view-landing');
+            const recipes = document.getElementById('view-recipes');
+            
+            if (viewName === 'recipes') {
+                landing.classList.add('hidden');
+                recipes.classList.remove('hidden');
+                renderAllRecipes();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                landing.classList.remove('hidden');
+                recipes.classList.add('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Functie om de receptenpagina te openen
+        function showAllRecipes(e) {
+            if (e) e.preventDefault();
+            
+            showView('recipes');
+            
+            // Sluit het mobiele menu (indien open)
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // Genereer de receptenkaarten in het grid
+        function renderAllRecipes() {
+            const grid = document.getElementById('recipe-grid');
+            grid.innerHTML = recipes.map(recipe => `
+                <div onclick="openRecipeModal(${recipe.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-cream-200 transition-all cursor-pointer group flex flex-col">
+                    <div class="relative h-48 overflow-hidden shrink-0">
+                        <img src="${recipe.image}" alt="${recipe.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-brand-500 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg shadow-sm">
+                            ${recipe.category}
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h3 class="font-bold text-earth-900 text-lg mb-2 line-clamp-2 group-hover:text-brand-600 transition-colors">${recipe.title}</h3>
+                        <div class="mt-auto pt-4 flex items-center gap-4 text-xs font-medium text-earth-600">
+                            <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> ${recipe.time}</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> ${recipe.kcal} kcal</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Initialiseer de pagina
