@@ -168,15 +168,20 @@
                         <div id="selected-ingredients-list" class="flex flex-wrap gap-2">
                             <!-- Ingevuld via JS -->
                         </div>
-                        <div class="mt-4 pt-4 border-t border-cream-200">
-                            <p id="recipe-match-count" class="text-brand-700 font-semibold text-sm mb-3">
+                        <div class="mt-4 pt-3 border-t border-cream-200 flex flex-wrap items-center justify-between gap-2">
+                            <p id="recipe-match-count" class="text-brand-700 font-semibold text-sm">
                                 <i class="fa-solid fa-utensils mr-1"></i> Voeg ingrediënten toe om te zoeken!
                             </p>
-                            <button onclick="showAllRecipes(event)" class="bg-sage-100 hover:bg-sage-200 text-brand-800 text-sm font-semibold px-5 py-2 rounded-full transition-colors">
-                                Bekijk recepten <i class="fa-solid fa-arrow-right ml-1"></i>
+                            <button onclick="showAllRecipes(event)" class="text-xs text-earth-700 hover:text-brand-600 font-semibold underline underline-offset-4 transition-colors">
+                                Bekijk alle recepten
                             </button>
                         </div>
                     </div>
+                </div>
+
+                <!-- Zoekresultaten & Aanbevelingen direct onder de zoekbalk -->
+                <div id="search-results-section" class="hidden max-w-6xl mx-auto mt-12 text-left">
+                    <!-- Dynamisch ingevuld via JavaScript -->
                 </div>
             </div>
         </section>
@@ -656,7 +661,7 @@
                 time: "10 min",
                 kcal: 350,
                 baseServings: 1,
-                image: "image_58f12c.jpg",
+                image: "https://www.fit.nl/wp-content/uploads/2019/07/wentelteefjes-recept.jpg",
                 ingredients: [
                     { name: "sneetjes oud brood", keyword: "brood", amount: 3, unit: "stuks" },
                     { name: "ei", keyword: "ei", amount: 1, unit: "stuks" },
@@ -873,124 +878,303 @@
         const ingredientsContainer = document.getElementById('selected-ingredients-container');
         const ingredientsList = document.getElementById('selected-ingredients-list');
         const recipeMatchCount = document.getElementById('recipe-match-count');
+        const searchResultsSection = document.getElementById('search-results-section');
+
+        // Helper: normaliseer Nederlandse enkelvoud/meervoud vormen voor betere ingrediënt-matching
+        function normalizeIngredientTerm(term) {
+            const cleaned = term.toLowerCase().trim();
+            const aliases = {
+                'tomaten': 'tomaat',
+                'cherrytomaten': 'tomaat',
+                'bananen': 'banaan',
+                'aardappelen': 'aardappel',
+                'aardappels': 'aardappel',
+                'eieren': 'ei',
+                'uien': 'ui',
+                'bonen': 'boon',
+                'champignons': 'champignon',
+                'kastanjechampignons': 'champignon',
+                'paddenstoelen': 'paddenstoel',
+                'bospaddenstoelen': 'paddenstoel',
+                'knakworstjes': 'worst',
+                'pitabroodjes': 'pita',
+                'croissants': 'croissant',
+                'noedels': 'noedel',
+                'udon-noedels': 'noedel',
+                'kikkererwten': 'kikkererwt',
+                'appels': 'appel',
+                'appelen': 'appel'
+            };
+            return aliases[cleaned] || cleaned;
+        }
 
         // Helper: controleer of een gebruikers-ingrediënt matcht met een recept-ingrediënt
         function isIngredientMatch(userItem, recipeIng) {
-            const u = userItem.name.toLowerCase();
-            return recipeIng.name.toLowerCase().includes(u) || 
-                   recipeIng.keyword.toLowerCase().includes(u) ||
-                   u.includes(recipeIng.keyword.toLowerCase());
+            const uRaw = userItem.name.toLowerCase().trim();
+            const uNorm = normalizeIngredientTerm(uRaw);
+            const rName = recipeIng.name.toLowerCase();
+            const rKey = recipeIng.keyword.toLowerCase();
+            const rKeyNorm = normalizeIngredientTerm(rKey);
+
+            return rName.includes(uRaw) ||
+                   rName.includes(uNorm) ||
+                   rKey.includes(uRaw) ||
+                   rKey.includes(uNorm) ||
+                   uRaw.includes(rKey) ||
+                   uNorm === rKeyNorm;
+        }
+
+        // Helper: geef een lijst terug van de gezochte ingrediënten die in dit recept voorkomen
+        function getMatchedSearchedIngredients(recipe) {
+            return selectedIngredients
+                .filter(userItem => {
+                    const uRaw = userItem.name.toLowerCase().trim();
+                    return recipe.ingredients.some(rIng => isIngredientMatch(userItem, rIng)) ||
+                           recipe.title.toLowerCase().includes(uRaw);
+                })
+                .map(userItem => userItem.name);
+        }
+
+        // Helper: bepaal een duidelijk hoofdingrediënt voor de tekst 'Heeft u ook ... in huis?'
+        function getPrimaryNeededIngredient(recipe) {
+            if (!recipe.ingredients || recipe.ingredients.length === 0) return 'deze ingrediënten';
+            const firstIng = recipe.ingredients[0].name;
+            // Verwijder eventuele haakjes voor een natuurlijke zin
+            return firstIng.replace(/\s*\(.*?\)/g, '').trim();
         }
 
         // Helper: bereken voorraadstatus voor een heel recept
         function evaluateRecipeStock(recipe, scaleFactor = 1) {
-            let matchedIngredients = 0;
             let allMatchedHaveEnough = true;
-            let suggestedFactor = 1;
+            let lowestRatio = scaleFactor;
 
             recipe.ingredients.forEach(rIng => {
                 const userItem = selectedIngredients.find(u => isIngredientMatch(u, rIng));
-                if (userItem) {
-                    matchedIngredients++;
-                    const neededAmount = rIng.amount * scaleFactor;
-                    // Alleen vergelijken als gebruiker een aantal heeft opgegeven
-                    if (userItem.amount !== null && userItem.amount < neededAmount) {
+                if (userItem && userItem.amount !== null && rIng.amount > 0) {
+                    const needed = rIng.amount * scaleFactor;
+                    if (userItem.amount < needed) {
                         allMatchedHaveEnough = false;
                         const ratio = userItem.amount / rIng.amount;
-                        if (ratio < suggestedFactor) {
-                            suggestedFactor = ratio;
+                        if (ratio < lowestRatio) {
+                            lowestRatio = ratio;
                         }
                     }
                 }
             });
 
-            return { matchedIngredients, allMatchedHaveEnough, suggestedFactor };
+            return {
+                allMatchedHaveEnough,
+                suggestedFactor: Math.max(0.25, Math.round(lowestRatio * 4) / 4)
+            };
         }
 
-        // Render de gekozen ingrediënten als tags in de hero-balk
-        function renderIngredientTags() {
+        // Ingrediënt toevoegen aan de koelkastlijst
+        function addIngredient(rawName, rawAmount = null, unit = 'g') {
+            const cleanName = (rawName || '').trim();
+            if (!cleanName) return;
+
+            const parsedAmount = rawAmount !== '' && rawAmount !== null && rawAmount !== undefined
+                ? parseFloat(rawAmount)
+                : null;
+            const validAmount = (parsedAmount !== null && !isNaN(parsedAmount) && parsedAmount > 0)
+                ? parsedAmount
+                : null;
+
+            const existingIndex = selectedIngredients.findIndex(
+                item => item.name.toLowerCase() === cleanName.toLowerCase()
+            );
+
+            if (existingIndex !== -1) {
+                const existing = selectedIngredients[existingIndex];
+                if (validAmount !== null) {
+                    if (existing.amount !== null && existing.unit === unit) {
+                        existing.amount = Math.round((existing.amount + validAmount) * 10) / 10;
+                    } else {
+                        existing.amount = validAmount;
+                        existing.unit = unit;
+                    }
+                }
+                showToast(`${cleanName} bijgewerkt in je koelkast!`);
+            } else {
+                selectedIngredients.push({
+                    name: cleanName,
+                    amount: validAmount,
+                    unit: unit || 'g'
+                });
+                showToast(`${cleanName} toegevoegd aan je koelkast!`);
+            }
+
+            renderSelectedIngredients();
+            updateRecipeCount();
+        }
+
+        // Eén ingrediënt verwijderen uit de lijst
+        function removeIngredient(index) {
+            selectedIngredients.splice(index, 1);
+            renderSelectedIngredients();
+            updateRecipeCount();
+        }
+
+        // Alle ingrediënten wissen
+        function clearIngredients() {
+            selectedIngredients = [];
+            renderSelectedIngredients();
+            updateRecipeCount();
+        }
+
+        // Toon de gekozen ingrediënten als badges onder de zoekbalk
+        function renderSelectedIngredients() {
+            if (!ingredientsContainer || !ingredientsList) return;
+
             if (selectedIngredients.length === 0) {
                 ingredientsContainer.classList.add('hidden');
+                ingredientsList.innerHTML = '';
                 return;
             }
 
             ingredientsContainer.classList.remove('hidden');
-            ingredientsList.innerHTML = selectedIngredients.map(ing => {
-                const amountLabel = ing.amount !== null ? `<span class="bg-sage-200 text-brand-900 px-1.5 py-0.5 rounded-md font-bold">${ing.amount}${ing.unit}</span>` : '';
-                return `
-                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sage-100 text-brand-900 border border-sage-200 text-xs font-semibold">
-                    ${amountLabel}
-                    <span>${ing.name}</span>
-                    <button type="button" onclick="removeIngredient('${ing.name.replace(/'/g, "\\'")}')" class="text-brand-600 hover:text-brand-900 focus:outline-none ml-0.5">
-                        <i class="fa-solid fa-xmark"></i>
+            ingredientsList.innerHTML = selectedIngredients.map((item, index) => `
+                <span class="inline-flex items-center gap-2 bg-sage-100 text-brand-800 border border-sage-200 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-sm">
+                    <span>${item.name}${item.amount !== null ? ` <span class="text-brand-600 font-normal">(${item.amount} ${item.unit})</span>` : ''}</span>
+                    <button type="button" onclick="removeIngredient(${index})" aria-label="Verwijder ${item.name}" class="w-4 h-4 rounded-full hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark text-[10px]"></i>
                     </button>
                 </span>
-            `}).join('');
+            `).join('');
         }
 
-        // Voeg een ingrediënt met optionele hoeveelheid toe aan de lijst
-        function addIngredient(rawName, rawAmount = null, rawUnit = 'g') {
-            const name = rawName.trim();
-            if (!name) return;
-
-            const parsedAmount = (rawAmount !== null && rawAmount !== "" && !isNaN(parseFloat(rawAmount))) 
-                ? parseFloat(rawAmount) 
-                : null;
-
-            const formatted = name.charAt(0).toUpperCase() + name.slice(1);
-            const existingIndex = selectedIngredients.findIndex(item => item.name.toLowerCase() === formatted.toLowerCase());
-
-            if (existingIndex > -1) {
-                // Werk hoeveelheid bij als ingrediënt al bestaat
-                if (parsedAmount !== null) {
-                    selectedIngredients[existingIndex].amount = parsedAmount;
-                    selectedIngredients[existingIndex].unit = rawUnit;
-                    showToast(`Hoeveelheid van '${formatted}' bijgewerkt naar ${parsedAmount}${rawUnit}`);
-                } else {
-                    showToast(`'${formatted}' staat al in je voorraad!`);
-                }
-            } else {
-                selectedIngredients.push({
-                    name: formatted,
-                    amount: parsedAmount,
-                    unit: rawUnit
-                });
-                const qtyText = parsedAmount !== null ? ` (${parsedAmount}${rawUnit})` : '';
-                showToast(`'${formatted}${qtyText}' toegevoegd!`);
-            }
-            
-            renderIngredientTags();
-            updateRecipeCount();
-        }
-
-        // Verwijder een specifiek ingrediënt
-        function removeIngredient(name) {
-            selectedIngredients = selectedIngredients.filter(item => item.name !== name);
-            renderIngredientTags();
-            updateRecipeCount();
-        }
-
-        // Wis alle gekozen ingrediënten
-        function clearIngredients() {
-            selectedIngredients = [];
-            renderIngredientTags();
-            updateRecipeCount();
-        }
-
-        // Bereken hoeveel recepten matchen en toon dit in de hero
+        // Bereken hoeveel recepten matchen en toon de resultaten direct onder de zoekbalk
         function updateRecipeCount() {
-            const filtered = recipes.filter(recipe => {
-                if (selectedIngredients.length === 0) return true;
-                return selectedIngredients.some(userItem => {
-                    return recipe.title.toLowerCase().includes(userItem.name.toLowerCase()) ||
-                           recipe.tags.some(t => t.toLowerCase().includes(userItem.name.toLowerCase())) ||
-                           recipe.ingredients.some(rIng => isIngredientMatch(userItem, rIng));
-                });
-            });
+            if (selectedIngredients.length === 0) {
+                if (recipeMatchCount) {
+                    recipeMatchCount.innerHTML = `<i class="fa-solid fa-utensils mr-1"></i> Voeg ingrediënten toe om te zoeken!`;
+                }
+                renderSearchResults();
+                return;
+            }
+
+            const matchedRecipes = recipes
+                .map(recipe => ({
+                    recipe,
+                    matchedNames: getMatchedSearchedIngredients(recipe)
+                }))
+                .filter(entry => entry.matchedNames.length > 0)
+                .sort((a, b) => b.matchedNames.length - a.matchedNames.length);
 
             if (recipeMatchCount) {
-                recipeMatchCount.innerHTML = `<i class="fa-solid fa-utensils mr-1"></i> ${filtered.length} recepten gevonden in de app!`;
+                if (matchedRecipes.length > 0) {
+                    recipeMatchCount.innerHTML = `<i class="fa-solid fa-utensils mr-1"></i> ${matchedRecipes.length} ${matchedRecipes.length === 1 ? 'recept' : 'recepten'} gevonden met jouw ingrediënten!`;
+                } else {
+                    recipeMatchCount.innerHTML = `<i class="fa-solid fa-circle-info mr-1"></i> Geen directe match gevonden`;
+                }
             }
+
+            renderSearchResults(matchedRecipes);
+        }
+
+        // Render de receptresultaten (of de 'helaas geen recept' melding met 3 aanbevolen recepten)
+        function renderSearchResults(matchedRecipes = []) {
+            if (!searchResultsSection) return;
+
+            if (selectedIngredients.length === 0) {
+                searchResultsSection.classList.add('hidden');
+                searchResultsSection.innerHTML = '';
+                return;
+            }
+
+            searchResultsSection.classList.remove('hidden');
+            const hasMultipleSearched = selectedIngredients.length > 1;
+
+            // Geval 1: Er zijn recepten gevonden met de gezochte ingrediënten
+            if (matchedRecipes.length > 0) {
+                searchResultsSection.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div>
+                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-earth-900">Gevonden recepten</h2>
+                            <p class="text-sm text-earth-700 mt-1">Klik op een recept om de ingrediënten en voorraadcheck te bekijken.</p>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider bg-sage-100 text-brand-800 px-3.5 py-1.5 rounded-full border border-sage-200 self-start sm:self-auto">
+                            ${matchedRecipes.length} ${matchedRecipes.length === 1 ? 'resultaat' : 'resultaten'}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${matchedRecipes.map(({ recipe, matchedNames }) => `
+                            <div onclick="openRecipeModal(${recipe.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-cream-200 transition-all cursor-pointer group flex flex-col">
+                                <div class="relative h-48 overflow-hidden shrink-0 bg-cream-200">
+                                    <img src="${recipe.image}" alt="${recipe.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute top-3 left-3 bg-brand-500 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg shadow-sm">
+                                        ${recipe.category}
+                                    </div>
+                                    ${hasMultipleSearched ? `
+                                        <div class="absolute top-3 right-3 max-w-[65%] bg-earth-900/90 backdrop-blur-sm text-cream-50 text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-md text-right leading-snug">
+                                            Bevat: ${matchedNames.join(', ')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-earth-900 text-lg mb-2 line-clamp-2 group-hover:text-brand-600 transition-colors">${recipe.title}</h3>
+                                    <div class="mt-auto pt-4 flex items-center gap-4 text-xs font-medium text-earth-600">
+                                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> ${recipe.time}</span>
+                                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> ${recipe.kcal} kcal</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                return;
+            }
+
+            // Geval 2: Geen recept gevonden met de gezochte ingrediënten -> toon melding + 3 aanbevolen recepten
+            const recommended = recipes.slice(0, 3);
+            const noMatchMessage = selectedIngredients.length === 1
+                ? 'Helaas hebben we (nog) geen recept met dit ingrediënt.'
+                : 'Helaas hebben we (nog) geen recept met deze ingrediënten.';
+
+            searchResultsSection.innerHTML = `
+                <div class="bg-white border border-cream-200 rounded-3xl p-6 sm:p-8 text-center shadow-sm mb-10">
+                    <div class="w-12 h-12 rounded-2xl bg-sage-100 text-brand-600 flex items-center justify-center text-xl mx-auto mb-3">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h2 class="font-serif text-xl sm:text-2xl font-bold text-earth-900">
+                        ${noMatchMessage}
+                    </h2>
+                    <p class="text-sm text-earth-600 mt-1.5">
+                        Geen zorgen! Bekijk hieronder onze aanbevolen recepten om toch lekker te koken.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-serif text-2xl font-bold text-earth-900 mb-5">Aanbevolen recepten</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        ${recommended.map(recipe => {
+                            const neededIngredient = getPrimaryNeededIngredient(recipe);
+                            return `
+                                <div onclick="openRecipeModal(${recipe.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-cream-200 transition-all cursor-pointer group flex flex-col">
+                                    <div class="relative h-48 overflow-hidden shrink-0 bg-cream-200">
+                                        <img src="${recipe.image}" alt="${recipe.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute top-3 left-3 bg-brand-500 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg shadow-sm">
+                                            ${recipe.category}
+                                        </div>
+                                    </div>
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <h4 class="font-bold text-earth-900 text-lg mb-2 line-clamp-2 group-hover:text-brand-600 transition-colors">${recipe.title}</h4>
+                                        <div class="my-2 px-3 py-2 rounded-xl bg-sage-50 border border-sage-200 text-brand-800 text-xs font-semibold flex items-center gap-2">
+                                            <i class="fa-solid fa-basket-shopping text-brand-500 shrink-0"></i>
+                                            <span>Heeft u ook <strong>${neededIngredient}</strong> in huis?</span>
+                                        </div>
+                                        <div class="mt-auto pt-3 flex items-center gap-4 text-xs font-medium text-earth-600">
+                                            <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-500"></i> ${recipe.time}</span>
+                                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-brand-500"></i> ${recipe.kcal} kcal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
         }
 
         // Formulier voor toevoegen van ingrediënten + hoeveelheid afhandelen
